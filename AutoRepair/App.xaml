@@ -6,5 +6,8 @@
     <Application.Resources>
         <Converters:CarToStringConverter x:Key="CarToStringConverter"/>
         <Converters:ClientToStringConverter x:Key="ClientToStringConverter"/>
+        <Converters:CarManufacturerToStringConverter x:Key="CarManufacturerToStringConverter"/>
+        <Converters:CarModelToStringConverter x:Key="CarModelToStringConverter"/>
+        <Converters:BackgroundColor x:Key="BackgroundColor"/>
     </Application.Resources>
 </Application>

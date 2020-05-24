@@ -15,7 +15,7 @@ namespace AutoRepair.Model
         {
         }
 
-        public Car(CarModel carModel, Color color, DateTime carProduceYear, string carNumber, string carVin,
+        public Car(CarModel carModel, Color color, string carProduceYear, string carNumber, string carVin,
             string carEngineNumber, string carBodyNumber, Client owner)
         {
             _carModel = carModel;
@@ -40,7 +40,6 @@ namespace AutoRepair.Model
         }
 
         #endregion
-
 
         #region CarModelProperty
 
@@ -73,9 +72,9 @@ namespace AutoRepair.Model
 
         #region CarProduceYearProperty
 
-        private DateTime _carProduceYear;
+        private string _carProduceYear;
 
-        public DateTime CarProduceYear
+        public string CarProduceYear
         {
             get => _carProduceYear;
             set => this.RaiseAndSetIfChanged(ref _carProduceYear, value);
