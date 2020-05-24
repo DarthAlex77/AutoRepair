@@ -1,0 +1,25 @@
+﻿<Window x:Class="AutoRepair.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AutoRepair.View"
+        Title="Автосервис" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Заказы">
+                <local:OrderTab />
+            </TabItem>
+            <TabItem Header="Машины">
+                <local:AutoTab />
+            </TabItem>
+            <TabItem Header="Клиенты">
+                <local:ClientTab />
+            </TabItem>
+            <TabItem Header="Запчасти">
+                <local:SparesTab />
+            </TabItem>
+            <TabItem Header="Услуги">
+                <local:ServicesTab/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
