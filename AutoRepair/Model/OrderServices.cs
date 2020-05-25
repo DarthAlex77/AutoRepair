@@ -1,5 +1,8 @@
-﻿namespace AutoRepair.Model
+﻿using System.ComponentModel;
+
+namespace AutoRepair.Model
 {
+    [Browsable(false)]
     public class OrderServices
     {
         public int OrderId { get; set; }

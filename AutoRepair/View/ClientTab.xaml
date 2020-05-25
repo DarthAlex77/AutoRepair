@@ -3,10 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AutoRepair.View"
+             xmlns:vm="clr-namespace:AutoRepair.ViewModel"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <vm:ClientTabViewModel/>
+    </UserControl.DataContext>
+
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="Новый клиент" Width="100" Margin="5,2,5,2" />
+            <Button Content="Изменить клиента" Width="100" Margin="5,2,5,2" />
+            <Button Content="Удалить клиента" Width="100" Margin="5,2,5,2" />
+        </StackPanel>
+        <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Clients}"  SelectedItem="{Binding SelectedClient}">
+            <sf:SfDataGrid.Columns>
+                <sf:GridTextColumn Width="100" HeaderText="Фамилия" MappingName="LastName"/>
+                <sf:GridTextColumn Width="100" HeaderText="Имя" MappingName="FirstName"/>
+                <sf:GridTextColumn Width="100" HeaderText="Отчество" MappingName="Patronymic"/>
+                <sf:GridTextColumn Width="100" HeaderText="Паспорт" MappingName="PersonalId"/>
+                <sf:GridTextColumn Width="100" HeaderText="Телефон" MappingName="PhoneNumber"/>
+                <sf:GridTextColumn ColumnSizer="AutoWithLastColumnFill" HeaderText="Адрес" MappingName="Address"/>
+            </sf:SfDataGrid.Columns>
+            <sf:SfDataGrid.DetailsViewDefinition>
+                <sf:GridViewDefinition RelationalColumn="ClientCars">
+                    <sf:GridViewDefinition.DataGrid>
+                        <sf:SfDataGrid AutoGenerateColumns="False">
+                            <sf:SfDataGrid.Columns>
+                                <sf:GridTextColumn Width="120" HeaderText="Производитель" MappingName="CarModel"
+                                                   DisplayBinding="{Binding CarModel,Converter={StaticResource CarManufacturerToStringConverter}}" />
+                                <sf:GridTextColumn Width="100" HeaderText="Модель" MappingName="CarModel"
+                                                   DisplayBinding="{Binding CarModel,Converter={StaticResource CarModelToStringConverter}}" />
+                                <sf:GridTextColumn Width="90" HeaderText="Гос Номер" MappingName="CarNumber" />
+                            </sf:SfDataGrid.Columns>
+                        </sf:SfDataGrid>
+                    </sf:GridViewDefinition.DataGrid>
+                </sf:GridViewDefinition>
+            </sf:SfDataGrid.DetailsViewDefinition>
+        </sf:SfDataGrid>
     </Grid>
 </UserControl>

@@ -1,65 +1,62 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
+using AutoRepair.Model;
 using ReactiveUI;
 
-namespace AutoRepair.Model
+namespace AutoRepair.ViewModel
 {
-    public class Car : ReactiveObject
+    internal class AutoEditWindowsViewModel : ReactiveObject
     {
-        #region Construcotrs
+        #region Constructors
 
-        public Car()
+        public AutoEditWindowsViewModel()
         {
         }
 
-        public Car(CarModel carModel, Color color, string carProduceYear, string carNumber, string carVin,
-            string carEngineNumber, string carBodyNumber, Client owner)
+        public AutoEditWindowsViewModel(bool isAddMode)
         {
-            _carModel = carModel;
-            _color = color;
-            _carProduceYear = carProduceYear;
-            _carNumber = carNumber;
-            _carVin = carVin;
-            _carEngineNumber = carEngineNumber;
-            _carBodyNumber = carBodyNumber;
-            _owner = owner;
+            _isAddMode = isAddMode;
         }
 
         #endregion
 
-        #region CarIdProperty
+        #region IsAddModeProperty
 
-        private int _carId;
-        public int CarId
+        private bool _isAddMode;
+
+        public bool IsAddMode
         {
-            get => _carId;
-            set => this.RaiseAndSetIfChanged(ref _carId, value);
+            get => _isAddMode;
+            set => this.RaiseAndSetIfChanged(ref _isAddMode, value);
         }
 
+        #endregion
+
+        #region CarManufacturerProperty
+
+        private string _carManufacturer;
+        public string CarManufacturer
+        {
+            get => _carManufacturer;
+            set => this.RaiseAndSetIfChanged(ref _carManufacturer, value);
+        }
         #endregion
 
         #region CarModelProperty
 
-        private CarModel _carModel;
-
-        public CarModel CarModel
+        private string _carModel;
+        public string CarModel
         {
             get => _carModel;
             set => this.RaiseAndSetIfChanged(ref _carModel, value);
         }
-
         #endregion
 
         #region ColorProperty
-        [Browsable(false), Column("Color")]
-        public int Argb {
-            get => _color.ToArgb();
-            set => _color = Color.FromArgb(value);
-        }
 
         private Color _color;
-        [NotMapped]
+
         public Color Color
         {
             get => _color;

@@ -24,21 +24,24 @@
         <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Cars}"
                        SelectedItem="{Binding SelectedCar}" SelectionUnit="Row">
             <sf:SfDataGrid.Columns>
-                <sf:GridTextColumn HeaderText="Производитель" MappingName="CarModel" DisplayBinding="{Binding CarModel,Converter={StaticResource CarManufacturerToStringConverter}}" />
-                <sf:GridTextColumn HeaderText="Модель" MappingName="CarModel" DisplayBinding="{Binding CarModel,Converter={StaticResource CarModelToStringConverter}}" />
-                <sf:GridTextColumn HeaderText="Цвет" MappingName="Color">
-                    <sf:GridTextColumn.CellStyle>
+                <sf:GridTextColumn Width="120" HeaderText="Производитель" MappingName="CarModel"
+                                   DisplayBinding="{Binding CarModel,Converter={StaticResource CarManufacturerToStringConverter}}" />
+                <sf:GridTextColumn Width="100" HeaderText="Модель" MappingName="CarModel"
+                                   DisplayBinding="{Binding CarModel,Converter={StaticResource CarModelToStringConverter}}" />
+                <sf:GridTemplateColumn Width="50" HeaderText="Цвет" MappingName="Color">
+                    <sf:GridTemplateColumn.CellStyle>
                         <Style TargetType="sf:GridCell">
-                            <Setter Property="Background" Value="{Binding Color ,Converter={StaticResource BackgroundColor}}"/>
+                            <Setter Property="Background" Value="{Binding Color ,Converter={StaticResource ColorToBackgroundColorConverter}}" />
                         </Style>
-                    </sf:GridTextColumn.CellStyle>
-                </sf:GridTextColumn>
-                <sf:GridTextColumn HeaderText="Год" MappingName="CarProduceYear" />
-                <sf:GridTextColumn HeaderText="Гос Номер" MappingName="CarNumber" />
-                <sf:GridTextColumn HeaderText="VIN Машины" MappingName="CarVin" />
-                <sf:GridTextColumn HeaderText="Номер двигателя" MappingName="CarEngineNumber" />
-                <sf:GridTextColumn HeaderText="Номер шасси" MappingName="CarBodyNumber" />
-                <sf:GridTextColumn HeaderText="Владелец" MappingName="CarOwner" DisplayBinding="{Binding CarOwner,Converter={StaticResource ClientToStringConverter}}" />
+                    </sf:GridTemplateColumn.CellStyle>
+                </sf:GridTemplateColumn>
+                <sf:GridTextColumn Width="40" HeaderText="Год" MappingName="CarProduceYear" />
+                <sf:GridTextColumn Width="90" HeaderText="Гос Номер" MappingName="CarNumber" />
+                <sf:GridTextColumn Width="100" HeaderText="VIN Машины" MappingName="CarVin" />
+                <sf:GridTextColumn Width="100" HeaderText="№ двигателя" MappingName="CarEngineNumber" />
+                <sf:GridTextColumn Width="80" HeaderText="№ шасси" MappingName="CarBodyNumber" />
+                <sf:GridTextColumn ColumnSizer="AutoWithLastColumnFill"  HeaderText="Владелец" MappingName="CarOwner"
+                                   DisplayBinding="{Binding CarOwner,Converter={StaticResource ClientToStringConverter}}" />
             </sf:SfDataGrid.Columns>
         </sf:SfDataGrid>
     </Grid>

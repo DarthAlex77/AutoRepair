@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AutoRepair
 {
-    public class AppContext : DbContext
+    public sealed class AppContext : DbContext
     {
         public AppContext()
         {

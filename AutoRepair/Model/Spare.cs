@@ -31,7 +31,6 @@ namespace AutoRepair.Model
 
         #endregion
 
-
         #region SpareNameProperty
 
         private string _spareName;

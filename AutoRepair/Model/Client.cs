@@ -35,7 +35,6 @@ namespace AutoRepair.Model
 
         #endregion
 
-
         #region FirstNameProperty
 
         private string _firstname;
