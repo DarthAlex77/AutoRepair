@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 using System.Drawing;
 using AutoRepair.Model;
+using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 
 namespace AutoRepair.ViewModel
@@ -12,11 +12,32 @@ namespace AutoRepair.ViewModel
 
         public AutoEditWindowsViewModel()
         {
+            MessageBus.Current.Listen<bool>("AddMode").Subscribe(x => IsAddMode = x);
+            MessageBus.Current.Listen<int>("EditCarId").Subscribe(SetCarProperties);
         }
 
-        public AutoEditWindowsViewModel(bool isAddMode)
+        #endregion
+
+        #region SetCarPropertiesMethod
+        private void SetCarProperties(int carId)
         {
-            _isAddMode = isAddMode;
+            Car car;
+            using (AppContext db = new AppContext())
+            {
+                db.CarModels.Load();
+                db.Clients.Load();
+                car = db.Cars.Find(carId);
+            }
+
+            CarManufacturer = car.CarModel.Manufacturer;
+            CarModel = car.CarModel.Model;
+            Color = car.Color;
+            CarProduceYear = car.CarProduceYear;
+            CarNumber = car.CarNumber;
+            CarVin = car.CarVin;
+            CarEngineNumber = car.CarEngineNumber;
+            CarBodyNumber = car.CarBodyNumber;
+            CarOwner = car.CarOwner;
         }
 
         #endregion

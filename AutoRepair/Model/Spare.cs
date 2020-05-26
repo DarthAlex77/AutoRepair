@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using ReactiveUI;
+﻿using ReactiveUI;
 
 namespace AutoRepair.Model
 {
