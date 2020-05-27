@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AutoRepair.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class SecondMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,8 +60,8 @@ namespace AutoRepair.Migrations
                     CarId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CarModelId = table.Column<int>(nullable: true),
-                    Color = table.Column<int>(nullable: false),
-                    CarProduceYear = table.Column<DateTime>(nullable: false),
+                    Color = table.Column<string>(nullable: true),
+                    CarProduceYear = table.Column<string>(nullable: true),
                     CarNumber = table.Column<string>(nullable: true),
                     CarVin = table.Column<string>(nullable: true),
                     CarEngineNumber = table.Column<string>(nullable: true),

@@ -10,8 +10,8 @@ namespace AutoRepair.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var client = value as Client;
-            var sb = new StringBuilder();
+            Client client = value as Client;
+            StringBuilder sb = new StringBuilder();
             sb.Append(client?.FirstName + " ");
             if (!String.IsNullOrWhiteSpace(client?.Patronymic))
             {

@@ -9,47 +9,59 @@
         Height="225" Width="400">
 
     <Window.DataContext>
-        <vm:AutoEditWindowsViewModel/>
+        <vm:AutoEditWindowsViewModel />
     </Window.DataContext>
 
     <Window.Style>
         <Style TargetType="Window">
             <!-- Default Content value -->
-            <Setter Property="Title" Value="Изменить Авто"/>
+            <Setter Property="Title" Value="Изменить Авто" />
             <!-- Triggered values -->
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsAddMode}" Value="True">
-                    <Setter Property="Title" Value="Добавить Авто"/>
+                    <Setter Property="Title" Value="Добавить Авто" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Style>
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.2*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Watermark="Производитель" Margin="8" Text="{Binding CarManufacturer}"/>
-                <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Watermark="Модель" Margin="8" Text="{Binding CarModel}"/>
-                <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Watermark="Год производства" Margin="8" Text="{Binding CarProduceYear}"/>
-                <sf:ColorPicker  Grid.Row="1" Grid.Column="1" Margin="8" Color="{Binding Color}" IsColorPaletteVisible="True" />
-                <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Watermark="VIN номер" Margin="8" Text="{Binding CarVin}"/>
-                <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Watermark="Номер Двигателя" Margin="8" Text="{Binding CarEngineNumber}"/>
-                <sf:SfTextBoxExt Grid.Row="3" Grid.Column="0" Watermark="Номер Шасси" Margin="8" Text="{Binding CarBodyNumber}"/>
-                <sf:SfTextBoxExt Grid.Row="3" Grid.Column="1" Watermark="Владелец" Margin="8" Text="{Binding CarOwner,Converter={StaticResource ClientToStringConverter}}"/>
+                <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Watermark="Производитель" Margin="8"
+                                 Text="{Binding CarManufacturer}" />
+                <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Watermark="Модель" Margin="8" Text="{Binding CarModel}" />
+                <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Watermark="Год производства" Margin="8"
+                                 Text="{Binding CarProduceYear}" />
+                <sf:ColorPickerPalette Grid.Row="1" Grid.Column="1" Margin="8" Color="{Binding Color}" />
+                <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Watermark="VIN номер" Margin="8" Text="{Binding CarVin}" />
+                <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Watermark="Номер Двигателя" Margin="8"
+                                 Text="{Binding CarEngineNumber}" />
+                <sf:SfTextBoxExt Grid.Row="3" Grid.Column="0" Watermark="Номер Шасси" Margin="8"
+                                 Text="{Binding CarBodyNumber}" />
+
+                <Grid Grid.Row="3" Grid.Column="1" Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="0.2*" />
+                    </Grid.ColumnDefinitions>
+                    <sf:SfTextBoxExt Grid.Column="0" Watermark="Владелец" IsReadOnly="True" Text="{Binding CarOwner,Converter={StaticResource ClientToStringConverter}}" />
+                    <Button Grid.Column="1" Command="{Binding SelectOwnerCommand}"  Content="..." />
+                </Grid>
             </Grid>
         </Grid>
         <StackPanel Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
@@ -57,13 +69,13 @@
                 <Button.Style>
                     <Style TargetType="Button">
                         <!-- Default Content value -->
-                        <Setter Property="Content" Value="Изменить авто"/>
-                        <Setter Property="Command" Value="{Binding Debug}"/>
+                        <Setter Property="Content" Value="Изменить авто" />
+                        <Setter Property="Command" Value="{Binding Debug}" />
                         <!-- Triggered values -->
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsAddMode}" Value="True">
-                                <Setter Property="Content" Value="Добавить авто"/>
-                                <Setter Property="Command" Value="{Binding Debug}"/>
+                                <Setter Property="Content" Value="Добавить авто" />
+                                <Setter Property="Command" Value="{Binding Debug}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

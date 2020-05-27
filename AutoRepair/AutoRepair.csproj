@@ -19,6 +19,14 @@
     <Compile Remove="Migrations\20200524132604_FirstUpdate.Designer.cs" />
     <Compile Remove="Migrations\20200524132724_InitialCreate.cs" />
     <Compile Remove="Migrations\20200524132724_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200524133043_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200524133043_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200524165011_DateTimeToString.cs" />
+    <Compile Remove="Migrations\20200524165011_DateTimeToString.Designer.cs" />
+    <Compile Remove="Migrations\20200527061111_SecondMigration.cs" />
+    <Compile Remove="Migrations\20200527061111_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200527062534_SecondMigration.cs" />
+    <Compile Remove="Migrations\20200527062534_SecondMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

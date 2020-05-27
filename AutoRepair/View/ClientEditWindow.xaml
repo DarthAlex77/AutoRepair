@@ -1,0 +1,109 @@
+﻿<Window x:Class="AutoRepair.View.ClientEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sf="http://schemas.syncfusion.com/wpf"
+        xmlns:vm="clr-namespace:AutoRepair.ViewModel"
+        xmlns:local="clr-namespace:AutoRepair"
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Height="350" Width="560"
+        local:DialogCloser.DialogClose="{Binding CloseWindow}">
+    <Window.DataContext>
+        <vm:ClientEditWindowViewModel/>
+    </Window.DataContext>
+
+
+    <Window.Style>
+        <Style TargetType="Window">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding WindowState}" Value="0">
+                    <Setter Property="Title" Value="Новый Клиент"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding WindowState}" Value="1">
+                    <Setter Property="Title" Value="Изменение данных клиента"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding WindowState}" Value="2">
+                    <Setter Property="Title" Value="Выбор клиента"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+
+    <Grid>
+        <Grid.RowDefinitions >
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding WindowState}" Value="2">
+                            <Setter Property="Visibility"  Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Margin="8" Watermark="Фамилия" Text="{Binding LastName}"/>
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="8" Watermark="Имя" Text="{Binding FirstName}"/>
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Margin="8" Watermark="Отчество" Text="{Binding Patronymic}"/>
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="8" Watermark="№ Документа Уд. Личности" Text="{Binding PersonalId}"/>
+            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Margin="8" Watermark="№ Номер Телефона" Text="{Binding PhoneNumber}"/>
+            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="8" Watermark="Адрес" Text="{Binding Address}"/>
+        </Grid>
+        <sf:SfDataGrid Grid.Row="1" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" AutoGenerateColumns="False">
+            <sf:SfDataGrid.Columns>
+                <sf:GridTextColumn Width="80" HeaderText="Фамилия" MappingName="LastName"/>
+                <sf:GridTextColumn Width="80" HeaderText="Имя" MappingName="FirstName"/>
+                <sf:GridTextColumn Width="80" HeaderText="Отчество" MappingName="Patronymic"/>
+                <sf:GridTextColumn Width="80" HeaderText="Паспорт" MappingName="PersonalId"/>
+                <sf:GridTextColumn Width="80" HeaderText="Телефон" MappingName="PhoneNumber"/>
+                <sf:GridTextColumn ColumnSizer="AutoWithLastColumnFill" HeaderText="Адрес" MappingName="Address"/>
+            </sf:SfDataGrid.Columns>
+            <sf:SfDataGrid.Style>
+                <Style TargetType="sf:SfDataGrid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding WindowState}" Value="2">
+                            <Setter Property="Visibility"  Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </sf:SfDataGrid.Style>
+        </sf:SfDataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Width="80" Margin="2" >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding WindowState}" Value="0">
+                                <Setter Property="Content" Value="Добавить"/>
+                                <Setter Property="Command" Value="{Binding AddClientCommand}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding WindowState}" Value="1">
+                                <Setter Property="Content" Value="Изменить"/>
+                                <Setter Property="Command" Value="{Binding EditClientCommand}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding WindowState}" Value="2">
+                                <Setter Property="Content" Value="Выбрать"/>
+                                <Setter Property="Command" Value="{Binding SelectClientCommand}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

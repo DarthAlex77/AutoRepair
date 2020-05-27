@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
 using ReactiveUI;
+using Syncfusion.Windows.Controls;
 
 namespace AutoRepair.Model
 {
@@ -13,7 +13,7 @@ namespace AutoRepair.Model
         {
         }
 
-        public Car(CarModel carModel, Color color, string carProduceYear, string carNumber, string carVin,
+        public Car(CarModel carModel, System.Windows.Media.Color color, string carProduceYear, string carNumber, string carVin,
             string carEngineNumber, string carBodyNumber, Client owner)
         {
             _carModel = carModel;
@@ -53,19 +53,20 @@ namespace AutoRepair.Model
 
         #region ColorProperty
         [Browsable(false), Column("Color")]
-        public int Argb {
-            get => _color.ToArgb();
-            set => _color = Color.FromArgb(value);
+        public string Argb
+        {
+            get => _color.ToString();
+            set => _color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(value.ToString());
         }
 
-        private Color _color;
+        private System.Windows.Media.Color _color;
         [NotMapped]
-        public Color Color
+        public System.Windows.Media.Color Color
         {
             get => _color;
             set => this.RaiseAndSetIfChanged(ref _color, value);
         }
-
+    
         #endregion
 
         #region CarProduceYearProperty

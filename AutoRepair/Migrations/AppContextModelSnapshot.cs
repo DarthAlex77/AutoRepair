@@ -26,9 +26,9 @@ namespace AutoRepair.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Argb")
+                    b.Property<string>("Argb")
                         .HasColumnName("Color")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CarBodyNumber")
                         .HasColumnType("nvarchar(max)");

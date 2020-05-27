@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoRepair.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20200524133043_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200527062931_SecondMigration")]
+    partial class SecondMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,9 @@ namespace AutoRepair.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Argb")
+                    b.Property<string>("Argb")
                         .HasColumnName("Color")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CarBodyNumber")
                         .HasColumnType("nvarchar(max)");
@@ -47,8 +47,8 @@ namespace AutoRepair.Migrations
                     b.Property<int?>("CarOwnerClientID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CarProduceYear")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CarProduceYear")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CarVin")
                         .HasColumnType("nvarchar(max)");
