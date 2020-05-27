@@ -5,14 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sf="http://schemas.syncfusion.com/wpf"
         xmlns:vm="clr-namespace:AutoRepair.ViewModel"
-        xmlns:local="clr-namespace:AutoRepair"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:autoRepair="clr-namespace:AutoRepair"
         mc:Ignorable="d" ResizeMode="NoResize"
-        Height="350" Width="560"
-        local:DialogCloser.DialogClose="{Binding CloseWindow}">
+        Height="350" Width="560">
+
     <Window.DataContext>
         <vm:ClientEditWindowViewModel/>
     </Window.DataContext>
 
+    <i:Interaction.Behaviors>
+        <autoRepair:CloseWindowBehavior CloseTrigger="{Binding CloseTrigger}" />
+    </i:Interaction.Behaviors>
 
     <Window.Style>
         <Style TargetType="Window">

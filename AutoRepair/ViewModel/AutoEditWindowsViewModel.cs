@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using AutoRepair.Model;
 using AutoRepair.View;
 using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
-using Syncfusion.Data.Extensions;
 
 namespace AutoRepair.ViewModel
 {
@@ -24,33 +24,6 @@ namespace AutoRepair.ViewModel
             MessageBus.Current.Listen<Client>("SelectedClient").Subscribe(x => CarOwner = x);
         }
 
-
-        #endregion
-
-        #region AddCarCommand
-        public ReactiveCommand<Unit, Unit> AddCarCommand { get; }
-        private void AddCar()
-        {
-            using (AppContext db=new AppContext())
-            {
-                CarModel carModel= db.CarModels.FirstOrDefault(x => x.Manufacturer==CarManufacturer&&x.Model==CarModel) ??
-                                   new CarModel(CarManufacturer,CarModel);
-                db.Cars.Add(new Car(carModel, Color, CarProduceYear, CarNumber, CarVin, CarEngineNumber,
-                    CarBodyNumber,CarOwner));
-            }
-        }
-
-        #endregion
-
-        #region SelectOwnerCommand
-        public ReactiveCommand<Unit, Unit> SelectOwnerCommand { get; }
-
-        private void SelectOwner()
-        {
-            MessageBus.Current.SendMessage(2,"WindowMode");
-            new ClientEditWindow().Show();
-        }
-
         #endregion
 
         #region SetCarPropertiesMethod
@@ -58,7 +31,7 @@ namespace AutoRepair.ViewModel
         private void SetCarProperties(int carId)
         {
             Car car;
-            using (AppContext db = new AppContext())
+            using (var db = new AppContext())
             {
                 db.CarModels.Load();
                 db.Clients.Load();
@@ -74,6 +47,36 @@ namespace AutoRepair.ViewModel
             CarEngineNumber = car.CarEngineNumber;
             CarBodyNumber = car.CarBodyNumber;
             CarOwner = car.CarOwner;
+        }
+
+        #endregion
+
+        #region AddCarCommand
+
+        public ReactiveCommand<Unit, Unit> AddCarCommand { get; }
+
+        private void AddCar()
+        {
+            using (var db = new AppContext())
+            {
+                var carModel =
+                    db.CarModels.FirstOrDefault(x => x.Manufacturer == CarManufacturer && x.Model == CarModel) ??
+                    new CarModel(CarManufacturer, CarModel);
+                db.Cars.Add(new Car(carModel, Color, CarProduceYear, CarNumber, CarVin, CarEngineNumber,
+                    CarBodyNumber, CarOwner));
+            }
+        }
+
+        #endregion
+
+        #region SelectOwnerCommand
+
+        public ReactiveCommand<Unit, Unit> SelectOwnerCommand { get; }
+
+        private void SelectOwner()
+        {
+            new ClientEditWindow().Show();
+            MessageBus.Current.SendMessage(2, "WindowMode");
         }
 
         #endregion

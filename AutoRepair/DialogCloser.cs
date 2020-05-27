@@ -1,28 +1,34 @@
 ﻿using System.Windows;
+using System.Windows.Interactivity;
 
 namespace AutoRepair
 {
-    public static class DialogCloser
+    public class CloseWindowBehavior : Behavior<Window>
     {
-        public static DependencyProperty DialogCloseProperty =
-            DependencyProperty.RegisterAttached ("DialogClose",
-                typeof (bool), typeof (DialogCloser), new UIPropertyMetadata (false, (d, e) =>
-                {
-                    if (d is Window w && (bool) e.NewValue)
-                    {
-                        w.DialogResult = true ;
-                        w.Close () ;
-                    }
-                })) ;
-
-        public static bool GetDialogClose (DependencyObject obj)
+        public bool CloseTrigger
         {
-            return (bool) obj.GetValue (DialogCloseProperty) ;
+            get => (bool) GetValue(CloseTriggerProperty);
+            set => SetValue(CloseTriggerProperty, value);
         }
 
-        public static void SetDialogClose (DependencyObject obj, bool value)
+        public static readonly DependencyProperty CloseTriggerProperty =
+            DependencyProperty.Register("CloseTrigger", typeof(bool), typeof(CloseWindowBehavior),
+                new PropertyMetadata(false, OnCloseTriggerChanged));
+
+        private static void OnCloseTriggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            obj.SetValue (DialogCloseProperty, value) ;
+            if (d is CloseWindowBehavior behavior)
+            {
+                behavior.OnCloseTriggerChanged();
+            }
+        }
+
+        private void OnCloseTriggerChanged()
+        {
+            if (this.CloseTrigger)
+            {
+                this.AssociatedObject.Close();
+            }
         }
     }
 }

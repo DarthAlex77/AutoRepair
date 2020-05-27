@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using AutoRepair.Model;
 using DynamicData.Binding;
 using ReactiveUI;
@@ -13,31 +14,33 @@ namespace AutoRepair.ViewModel
         public ClientEditWindowViewModel()
         {
             MessageBus.Current.Listen<int>("WindowMode").Subscribe(x => WindowState = x);
-            using (AppContext db = new AppContext())
+            using (var db = new AppContext())
             {
                 Clients = new ObservableCollectionExtended<Client>(db.Clients);
             }
 
             AddClientCommand = ReactiveCommand.Create(AddClient);
             EditClientCommand = ReactiveCommand.Create(EditClient);
-            SelectClientCommand = ReactiveCommand.Create(SelectClient);
+            SelectClientCommand = ReactiveCommand.Create(SelectClient,IsClientSelected);
         }
 
-        #endregion
-
-        #region CloseWindowProperty
-
-        private bool _closeWindow;
-        public bool CloseWindow
-        {
-            get => _closeWindow;
-            set => this.RaiseAndSetIfChanged(ref _closeWindow, value);
-        }
         #endregion
 
         #region ClientsProperty
 
         public ObservableCollectionExtended<Client> Clients { get; set; }
+
+        #endregion
+
+        #region CloseWindowProperty
+
+        private bool _closeTrigger;
+
+        public bool CloseTrigger
+        {
+            get => _closeTrigger;
+            set => this.RaiseAndSetIfChanged(ref _closeTrigger, value);
+        }
 
         #endregion
 
@@ -64,11 +67,11 @@ namespace AutoRepair.ViewModel
         #region SelectClientCommand
 
         public ReactiveCommand<Unit, Unit> SelectClientCommand { get; }
-
+        private IObservable<bool> IsClientSelected => this.WhenAnyValue(x => x.SelectedClient).Select(x => x != null);
         private void SelectClient()
         {
-            MessageBus.Current.SendMessage(SelectedClient,"SelectedClient");
-            CloseWindow = true;
+            MessageBus.Current.SendMessage(SelectedClient, "SelectedClient");
+            CloseTrigger = true;
         }
 
         #endregion
@@ -76,11 +79,13 @@ namespace AutoRepair.ViewModel
         #region SelectedClientProperty
 
         private Client _selectedClient;
+
         public Client SelectedClient
         {
             get => _selectedClient;
             set => this.RaiseAndSetIfChanged(ref _selectedClient, value);
         }
+
         #endregion
 
         #region WindowStateProperty

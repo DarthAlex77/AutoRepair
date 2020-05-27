@@ -41,6 +41,7 @@
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="18.1.0.53" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="18.1.0.53" />
     <PackageReference Include="System.Reactive" Version="4.4.1" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
 </Project>
