@@ -5,12 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:AutoRepair.ViewModel"
         xmlns:sf="http://schemas.syncfusion.com/wpf"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:autoRepair="clr-namespace:AutoRepair"
         mc:Ignorable="d"
-        Height="225" Width="400">
+        Height="250" Width="400">
 
     <Window.DataContext>
         <vm:AutoEditWindowsViewModel />
     </Window.DataContext>
+
+    <i:Interaction.Behaviors>
+        <autoRepair:CloseWindowBehavior CloseTrigger="{Binding CloseTrigger}" />
+    </i:Interaction.Behaviors>
 
     <Window.Style>
         <Style TargetType="Window">
@@ -37,24 +43,22 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Watermark="Производитель" Margin="8"
-                                 Text="{Binding CarManufacturer}" />
+                <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Watermark="Производитель" Margin="8" Text="{Binding CarManufacturer}" />
                 <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Watermark="Модель" Margin="8" Text="{Binding CarModel}" />
-                <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Watermark="Год производства" Margin="8"
-                                 Text="{Binding CarProduceYear}" />
-                <sf:ColorPickerPalette Grid.Row="1" Grid.Column="1" Margin="8" Color="{Binding Color}" />
-                <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Watermark="VIN номер" Margin="8" Text="{Binding CarVin}" />
-                <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Watermark="Номер Двигателя" Margin="8"
-                                 Text="{Binding CarEngineNumber}" />
-                <sf:SfTextBoxExt Grid.Row="3" Grid.Column="0" Watermark="Номер Шасси" Margin="8"
-                                 Text="{Binding CarBodyNumber}" />
+                <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Watermark="Год производства" Margin="8" Text="{Binding CarProduceYear}" />
+                <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Watermark="Гос Номер" Margin="8" Text="{Binding CarNumber}"/>
+                <sf:ColorPickerPalette  Grid.Row="2" Grid.Column="0" Margin="8" Color="{Binding Color,Mode=TwoWay}"/>
+                <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Watermark="VIN номер" Margin="8" Text="{Binding CarVin}" />
+                <sf:SfTextBoxExt Grid.Row="3" Grid.Column="0" Watermark="Номер Двигателя" Margin="8" Text="{Binding CarEngineNumber}" />
+                <sf:SfTextBoxExt Grid.Row="3" Grid.Column="1" Watermark="Номер Шасси" Margin="8" Text="{Binding CarBodyNumber}" />
 
-                <Grid Grid.Row="3" Grid.Column="1" Margin="8">
+                <Grid Grid.Row="4" Grid.Column="0" ColumnSpan="2" Margin="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="0.2*" />
@@ -65,17 +69,17 @@
             </Grid>
         </Grid>
         <StackPanel Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
-            <Button Margin="5,2,0,2" Width="100">
+            <Button Margin="5,2,0,2" Width="100" IsDefault="True">
                 <Button.Style>
                     <Style TargetType="Button">
                         <!-- Default Content value -->
                         <Setter Property="Content" Value="Изменить авто" />
-                        <Setter Property="Command" Value="{Binding Debug}" />
+                        <Setter Property="Command" Value="{Binding EditCarCommand}" />
                         <!-- Triggered values -->
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsAddMode}" Value="True">
                                 <Setter Property="Content" Value="Добавить авто" />
-                                <Setter Property="Command" Value="{Binding Debug}" />
+                                <Setter Property="Command" Value="{Binding AddCarCommand}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

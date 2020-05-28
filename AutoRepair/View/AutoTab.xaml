@@ -22,11 +22,11 @@
             <Button Content="Удалить машину" Width="100" Margin="5,2,5,2" Command="{Binding DeleteCarCommand}"/>
         </StackPanel>
         <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Cars}"
-                       SelectedItem="{Binding SelectedCar}" SelectionUnit="Row">
+                        SelectedItem="{Binding SelectedCar}" SelectionUnit="Row" AllowSorting="False" RowHeight="35">
             <sf:SfDataGrid.Columns>
-                <sf:GridTextColumn Width="120" HeaderText="Производитель" MappingName="CarModel"
+                <sf:GridTextColumn Width="110" HeaderText="Производитель" MappingName="CarModel"
                                    DisplayBinding="{Binding CarModel,Converter={StaticResource CarManufacturerToStringConverter}}" />
-                <sf:GridTextColumn Width="100" HeaderText="Модель" MappingName="CarModel"
+                <sf:GridTextColumn Width="80" HeaderText="Модель" MappingName="CarModel"
                                    DisplayBinding="{Binding CarModel,Converter={StaticResource CarModelToStringConverter}}" />
                 <sf:GridTemplateColumn Width="50" HeaderText="Цвет" MappingName="Color">
                     <sf:GridTemplateColumn.CellStyle>
@@ -37,12 +37,12 @@
                     </sf:GridTemplateColumn.CellStyle>
                 </sf:GridTemplateColumn>
                 <sf:GridTextColumn Width="40" HeaderText="Год" MappingName="CarProduceYear" />
-                <sf:GridTextColumn Width="90" HeaderText="Гос Номер" MappingName="CarNumber" />
+                <sf:GridTextColumn Width="80" HeaderText="Гос Номер" MappingName="CarNumber" />
                 <sf:GridTextColumn Width="100" HeaderText="VIN Машины" MappingName="CarVin" />
                 <sf:GridTextColumn Width="100" HeaderText="№ двигателя" MappingName="CarEngineNumber" />
-                <sf:GridTextColumn Width="80" HeaderText="№ шасси" MappingName="CarBodyNumber" />
+                <sf:GridTextColumn Width="100" HeaderText="№ шасси" MappingName="CarBodyNumber" />
                 <sf:GridTextColumn ColumnSizer="AutoWithLastColumnFill" HeaderText="Владелец" MappingName="CarOwner"
-                                   DisplayBinding="{Binding CarOwner,Converter={StaticResource ClientToStringConverter}}" />
+                                   DisplayBinding="{Binding CarOwner,Converter={StaticResource ClientToStringConverter}}" TextWrapping="Wrap" />
             </sf:SfDataGrid.Columns>
         </sf:SfDataGrid>
     </Grid>

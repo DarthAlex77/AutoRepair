@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media;
 using AutoRepair.Model;
 using AutoRepair.View;
+using AutoRepair;
 using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 
@@ -18,6 +18,7 @@ namespace AutoRepair.ViewModel
         public AutoEditWindowsViewModel()
         {
             AddCarCommand = ReactiveCommand.Create(AddCar);
+            EditCarCommand = ReactiveCommand.Create(EditCar);
             SelectOwnerCommand = ReactiveCommand.Create(SelectOwner);
             MessageBus.Current.Listen<bool>("AddMode").Subscribe(x => IsAddMode = x);
             MessageBus.Current.Listen<int>("EditCarId").Subscribe(SetCarProperties);
@@ -31,13 +32,14 @@ namespace AutoRepair.ViewModel
         private void SetCarProperties(int carId)
         {
             Car car;
-            using (var db = new AppContext())
+            using (AppContext db = new AppContext())
             {
                 db.CarModels.Load();
                 db.Clients.Load();
                 car = db.Cars.Find(carId);
             }
 
+            CarId = car.CarId;
             CarManufacturer = car.CarModel.Manufacturer;
             CarModel = car.CarModel.Model;
             Color = car.Color;
@@ -57,16 +59,52 @@ namespace AutoRepair.ViewModel
 
         private void AddCar()
         {
-            using (var db = new AppContext())
+            using (AppContext db = new AppContext())
             {
-                var carModel =
+                CarModel carModel =
                     db.CarModels.FirstOrDefault(x => x.Manufacturer == CarManufacturer && x.Model == CarModel) ??
                     new CarModel(CarManufacturer, CarModel);
                 db.Cars.Add(new Car(carModel, Color, CarProduceYear, CarNumber, CarVin, CarEngineNumber,
-                    CarBodyNumber, CarOwner));
+                    CarBodyNumber, db.Find<Client>(CarOwner.ClientID)));
+                db.SaveChanges();
             }
+            UpdateDatabaseEvent.OnDatabaseUpdated();
+            CloseTrigger = true;
         }
 
+        #endregion
+
+        #region EditCarCommand
+        public ReactiveCommand<Unit, Unit> EditCarCommand { get; }
+        private void EditCar()
+        {
+            using (AppContext db=new AppContext())
+            {
+               Car car= db.Cars.Find(CarId);
+               CarModel carModel = db.CarModels.FirstOrDefault(x => x.Manufacturer == CarManufacturer && x.Model == CarModel) ?? new CarModel(CarManufacturer, CarModel);
+               car.CarModel = carModel;
+               car.Color = Color;
+               car.CarProduceYear = CarProduceYear;
+               car.CarNumber = CarNumber;
+               car.CarVin = CarVin;
+               car.CarEngineNumber = CarEngineNumber;
+               car.CarBodyNumber = CarBodyNumber;
+               CarOwner = CarOwner;
+               db.SaveChanges();
+            }
+            UpdateDatabaseEvent.OnDatabaseUpdated();
+            CloseTrigger = true;
+        }
+        #endregion
+
+        #region CloseTriggerProperty
+
+        private bool _closeTrigger;
+        public bool CloseTrigger
+        {
+            get => _closeTrigger;
+            set => this.RaiseAndSetIfChanged(ref _closeTrigger, value);
+        }
         #endregion
 
         #region SelectOwnerCommand
@@ -75,7 +113,7 @@ namespace AutoRepair.ViewModel
 
         private void SelectOwner()
         {
-            new ClientEditWindow().Show();
+            new ClientEditWindow().ShowDialogAsync();
             MessageBus.Current.SendMessage(2, "WindowMode");
         }
 
@@ -94,6 +132,17 @@ namespace AutoRepair.ViewModel
         #endregion
 
         #region CarProperties
+
+        #region CarIdProperty
+
+        private int _carId;
+        public int CarId
+        {
+            get => _carId;
+            set => this.RaiseAndSetIfChanged(ref _carId, value);
+        }
+
+        #endregion
 
         #region CarManufacturerProperty
 

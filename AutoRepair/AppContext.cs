@@ -8,6 +8,7 @@ namespace AutoRepair
         public AppContext()
         {
             Database.EnsureCreated();
+
         }
 
         public DbSet<Car> Cars { get; set; }
@@ -29,6 +30,8 @@ namespace AutoRepair
                 .HasForeignKey(os => os.OrderId);
             modelBuilder.Entity<OrderServices>().HasOne<Service>(os => os.Service).WithMany(s => s.OrderServices)
                 .HasForeignKey(os => os.ServiceId);
+            modelBuilder.Entity<Car>().HasOne(p => p.CarOwner).WithMany(p => p.ClientCars).OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

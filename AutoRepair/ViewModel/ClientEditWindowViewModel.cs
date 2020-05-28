@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using AutoRepair.Model;
@@ -14,7 +15,8 @@ namespace AutoRepair.ViewModel
         public ClientEditWindowViewModel()
         {
             MessageBus.Current.Listen<int>("WindowMode").Subscribe(x => WindowState = x);
-            using (var db = new AppContext())
+            MessageBus.Current.Listen<Client>("EditClient").Subscribe(ClientSelected);
+            using (AppContext db = new AppContext())
             {
                 Clients = new ObservableCollectionExtended<Client>(db.Clients);
             }
@@ -50,16 +52,45 @@ namespace AutoRepair.ViewModel
 
         private void AddClient()
         {
+            using (AppContext db =new AppContext())
+            {
+                db.Clients.Add(new Client(FirstName,LastName,Patronymic,PersonalId,PhoneNumber,Address));
+                db.SaveChanges();
+            }
+            UpdateDatabaseEvent.OnDatabaseUpdated();
+            CloseTrigger = true;
         }
 
         #endregion
 
         #region EditClientCommand
-
+        private void ClientSelected(Client obj)
+        {
+            ClientID = obj.ClientID;
+            FirstName = obj.FirstName;
+            LastName = obj.LastName;
+            Patronymic = obj.Patronymic;
+            PersonalId = obj.PersonalId;
+            PhoneNumber = obj.PhoneNumber;
+            Address = obj.Address;
+        }
         public ReactiveCommand<Unit, Unit> EditClientCommand { get; }
 
         private void EditClient()
         {
+            using (AppContext db=new AppContext())
+            {
+                Client client=db.Clients.Find(ClientID);
+                client.FirstName = FirstName;
+                client.LastName = LastName;
+                client.Patronymic = Patronymic;
+                client.PersonalId = PersonalId;
+                client.PhoneNumber = PhoneNumber;
+                client.Address = Address;
+                db.SaveChanges();
+            }
+            UpdateDatabaseEvent.OnDatabaseUpdated();
+            CloseTrigger = true;
         }
 
         #endregion
@@ -101,7 +132,16 @@ namespace AutoRepair.ViewModel
         #endregion
 
         #region ClientProperties
+        #region ClientIDProperty
 
+        private int _clientId;
+        public int ClientID
+        {
+            get => _clientId;
+            set => this.RaiseAndSetIfChanged(ref _clientId, value);
+        }
+
+        #endregion
         #region FirstNameProperty
 
         private string _firstname;

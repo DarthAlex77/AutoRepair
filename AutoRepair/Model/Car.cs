@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Windows.Media;
 using ReactiveUI;
-using Syncfusion.Windows.Controls;
 
 namespace AutoRepair.Model
 {
@@ -56,7 +56,7 @@ namespace AutoRepair.Model
         public string Argb
         {
             get => _color.ToString();
-            set => _color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(value.ToString());
+            set => _color = (Color) ColorConverter.ConvertFromString(value);
         }
 
         private System.Windows.Media.Color _color;

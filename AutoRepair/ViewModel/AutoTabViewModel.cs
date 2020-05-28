@@ -2,7 +2,6 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
-using System.Windows.Forms;
 using AutoRepair.Model;
 using AutoRepair.View;
 using DynamicData.Binding;
@@ -15,18 +14,21 @@ namespace AutoRepair.ViewModel
     internal class AutoTabViewModel : ReactiveObject
     {
         #region Constructor
-
         public AutoTabViewModel()
         {
             EditCarCommand = ReactiveCommand.Create(EditCar, IsCarSelected);
             DeleteCarCommand = ReactiveCommand.Create(DeleteCar, IsCarSelected);
             AddCarCommand = ReactiveCommand.Create(AddCar);
+            UpdateDatabaseEvent.DatabaseUpdated += DataBaseUpdated;
+            Cars=new ObservableCollectionExtended<Car>();
+            DataBaseUpdated();
+        }
 
-            using (AppContext db = new AppContext())
+        private void DataBaseUpdated()
+        {
+            using (AppContext db=new AppContext())
             {
-                Cars = new ObservableCollectionExtended<Car>(db.Cars);
-                db.CarModels.Load();
-                db.Clients.Load();
+                Cars.Load(db.Cars.Include(x=>x.CarOwner));
             }
         }
 
@@ -42,7 +44,7 @@ namespace AutoRepair.ViewModel
 
         private void EditCar()
         {
-            new AutoEditWindow().Show();
+            new AutoEditWindow().ShowDialogAsync();
             MessageBus.Current.SendMessage(SelectedCar.CarId,"EditCarId");
         }
 
@@ -55,7 +57,7 @@ namespace AutoRepair.ViewModel
 
         private void AddCar()
         {
-            new AutoEditWindow().Show();
+            new AutoEditWindow().ShowDialogAsync();
             MessageBus.Current.SendMessage(true,"AddMode");
         }
 
@@ -76,7 +78,6 @@ namespace AutoRepair.ViewModel
                     Car car = db.Cars.Find(SelectedCar.CarId);
                     db.Cars.Remove(car);
                     db.SaveChanges();
-                    Cars.Remove(car);
                 }
             }
         }

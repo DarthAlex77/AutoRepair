@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using ReactiveUI;
 
 namespace AutoRepair.Model
@@ -11,7 +12,7 @@ namespace AutoRepair.Model
 
         }
 
-        public Client(string firstname, string lastName, string patronymic, string personalId, string phoneNumber, string address, List<Car> carsList)
+        public Client(string firstname, string lastName, string patronymic, string personalId, string phoneNumber, string address)
         {
             _firstname = firstname;
             _lastName = lastName;
@@ -19,7 +20,6 @@ namespace AutoRepair.Model
             _personalId = personalId;
             _phoneNumber = phoneNumber;
             _address = address;
-            _carsList = carsList;
         }
 
         #endregion
@@ -110,6 +110,7 @@ namespace AutoRepair.Model
         #region ClientCarsProperty
 
         private List<Car> _carsList;
+        [Browsable(false)]
         public List<Car> ClientCars
         {
             get => _carsList;

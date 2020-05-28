@@ -15,8 +15,7 @@ namespace AutoRepair.Converters
         {
             if (value != null)
             {
-                Color color = (Color) value;
-                return new SolidColorBrush(System.Windows.Media.Color.FromArgb(color.A,color.R,color.G,color.B));
+                return new SolidColorBrush((System.Windows.Media.Color) value);
             }
 
             throw new ArgumentNullException();

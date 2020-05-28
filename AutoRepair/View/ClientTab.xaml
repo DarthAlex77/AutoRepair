@@ -18,11 +18,11 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Новый клиент" Width="100" Margin="5,2,5,2" />
-            <Button Content="Изменить клиента" Width="100" Margin="5,2,5,2" />
-            <Button Content="Удалить клиента" Width="100" Margin="5,2,5,2" />
+            <Button Content="Новый клиент" Command="{Binding AddClientCommand}" Width="100" Margin="5,2,5,2" />
+            <Button Content="Изменить клиента" Command="{Binding EditClientCommand}" Width="100" Margin="5,2,5,2" />
+            <Button Content="Удалить клиента" Command="{Binding DeleteClientCommand}" Width="100" Margin="5,2,5,2" />
         </StackPanel>
-        <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Clients}"  SelectedItem="{Binding SelectedClient}">
+        <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Clients}"  SelectedItem="{Binding SelectedClient}" AllowSorting="False">
             <sf:SfDataGrid.Columns>
                 <sf:GridTextColumn Width="100" HeaderText="Фамилия" MappingName="LastName"/>
                 <sf:GridTextColumn Width="100" HeaderText="Имя" MappingName="FirstName"/>
@@ -34,7 +34,7 @@
             <sf:SfDataGrid.DetailsViewDefinition>
                 <sf:GridViewDefinition RelationalColumn="ClientCars">
                     <sf:GridViewDefinition.DataGrid>
-                        <sf:SfDataGrid AutoGenerateColumns="False">
+                        <sf:SfDataGrid AutoGenerateColumns="False" AllowSorting="False">
                             <sf:SfDataGrid.Columns>
                                 <sf:GridTextColumn Width="120" HeaderText="Производитель" MappingName="CarModel"
                                                    DisplayBinding="{Binding CarModel,Converter={StaticResource CarManufacturerToStringConverter}}" />
