@@ -69,15 +69,5 @@ namespace AutoRepair.Model
 
         #endregion
 
-        #region OrderListProperty
-        private List<OrderServices> _orderServices;
-        [Browsable(false)]
-        public List<OrderServices> OrderServices
-        {
-            get => _orderServices;
-            set => this.RaiseAndSetIfChanged(ref _orderServices, value);
-        }
-        #endregion
-
     }
 }

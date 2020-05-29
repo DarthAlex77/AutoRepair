@@ -11,11 +11,10 @@ namespace AutoRepair.Model
         {
         }
 
-        public Order(Car car, Client client, List<Spare> sparesList)
+        public Order(Car car, Client client)
         {
             _car = car;
             _client = client;
-            _sparesList = sparesList;
         }
 
         #endregion
@@ -52,30 +51,6 @@ namespace AutoRepair.Model
         {
             get => _client;
             set => this.RaiseAndSetIfChanged(ref _client, value);
-        }
-
-        #endregion
-
-        #region OdrerServicesProperty
-
-        private List<OrderServices> _orderServices;
-
-        public List<OrderServices> OrderServices
-        {
-            get => _orderServices;
-            set => this.RaiseAndSetIfChanged(ref _orderServices, value);
-        }
-
-        #endregion
-
-        #region OderSparesProperty
-
-        private List<Spare> _sparesList;
-
-        public List<Spare> OderSpares
-        {
-            get => _sparesList;
-            set => this.RaiseAndSetIfChanged(ref _sparesList, value);
         }
 
         #endregion

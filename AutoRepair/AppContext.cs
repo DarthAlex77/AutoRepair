@@ -25,13 +25,13 @@ namespace AutoRepair
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<OrderServices>().HasKey(os => new {os.ServiceId, os.OrderId});
+           /* modelBuilder.Entity<OrderServices>().HasKey(os => new {os.ServiceId, os.OrderId});
             modelBuilder.Entity<OrderServices>().HasOne<Order>(os => os.Order).WithMany(o => o.OrderServices)
                 .HasForeignKey(os => os.OrderId);
             modelBuilder.Entity<OrderServices>().HasOne<Service>(os => os.Service).WithMany(s => s.OrderServices)
                 .HasForeignKey(os => os.ServiceId);
             modelBuilder.Entity<Car>().HasOne(p => p.CarOwner).WithMany(p => p.ClientCars).OnDelete(DeleteBehavior.Cascade);
-
+            */
         }
     }
 }

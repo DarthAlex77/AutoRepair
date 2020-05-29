@@ -8,7 +8,7 @@
             <TabItem Header="Заказы">
                 <local:OrderTab />
             </TabItem>
-            <TabItem Header="Машины" Height="22" Margin="-2,-2,-2,0" VerticalAlignment="Top">
+            <TabItem Header="Машины">
                 <local:AutoTab />
             </TabItem>
             <TabItem Header="Клиенты">

@@ -28,7 +28,7 @@ namespace AutoRepair.ViewModel
         {
             using (AppContext db=new AppContext())
             {
-                Cars.Load(db.Cars.Include(x=>x.CarOwner));
+                Cars.Load(db.Cars.Include(x=>x.CarOwner).Include(x=>x.CarModel));
             }
         }
 
@@ -79,6 +79,7 @@ namespace AutoRepair.ViewModel
                     db.Cars.Remove(car);
                     db.SaveChanges();
                 }
+                UpdateDatabaseEvent.OnDatabaseUpdated();
             }
         }
 
