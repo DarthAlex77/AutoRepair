@@ -9,7 +9,7 @@
                 <local:OrderTab />
             </TabItem>
             <TabItem Header="Машины">
-                <local:AutoTab />
+                <local:CarTab />
             </TabItem>
             <TabItem Header="Клиенты">
                 <local:ClientTab />
@@ -18,7 +18,7 @@
                 <local:SparesTab />
             </TabItem>
             <TabItem Header="Услуги">
-                <local:ServicesTab/>
+                <local:ServicesTab />
             </TabItem>
         </TabControl>
     </Grid>

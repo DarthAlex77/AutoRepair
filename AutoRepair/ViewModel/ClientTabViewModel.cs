@@ -29,11 +29,11 @@ namespace AutoRepair.ViewModel
 
         public ClientTabViewModel()
         {
-            AddClientCommand = ReactiveCommand.Create(AddClient);
-            EditClientCommand = ReactiveCommand.Create(EditClient, IsClientSelected);
-            DeleteClientCommand = ReactiveCommand.Create(DeleteClient, IsClientSelected);
+            AddClientCommand                    =  ReactiveCommand.Create(AddClient);
+            EditClientCommand                   =  ReactiveCommand.Create(EditClient, IsClientSelected);
+            DeleteClientCommand                 =  ReactiveCommand.Create(DeleteClient, IsClientSelected);
             UpdateDatabaseEvent.DatabaseUpdated += DataBaseUpdated;
-            Clients = new ObservableCollectionExtended<Client>();
+            Clients                             =  new ObservableCollectionExtended<Client>();
             DataBaseUpdated();
         }
 
@@ -91,15 +91,15 @@ namespace AutoRepair.ViewModel
         private void DeleteClient()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show(
-                "Вы действительно хотите удалить клиента" + Environment.NewLine +
-                "ВНИМАНИЕ!! Удаление клиента привод к удалению всех его машин и заказов.", "Удалить?",
-                MessageBoxButton.YesNo);
+                    "Вы действительно хотите удалить клиента" + Environment.NewLine +
+                    "ВНИМАНИЕ!! Удаление клиента привод к удалению всех его машин и заказов.", "Удалить?",
+                    MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 using (AppContext db = new AppContext())
                 {
                     Client client = db.Clients.Include(x => x.ClientCars)
-                        .First(x => x.ClientID == SelectedClient.ClientID);
+                                      .First(x => x.ClientID == SelectedClient.ClientID);
 
                     db.Clients.Remove(client);
                     db.SaveChanges();

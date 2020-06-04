@@ -13,6 +13,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="ReactiveUI-FluentValidation" Version="1.0.0" />
     <PackageReference Include="ReactiveUI.Events.WPF" Version="11.4.1" />
     <PackageReference Include="ReactiveUI.WPF" Version="11.4.1" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="18.1.0.53" />

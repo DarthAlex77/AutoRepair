@@ -4,10 +4,10 @@
              xmlns:Converters="clr-namespace:AutoRepair.Converters"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-        <Converters:CarToStringConverter x:Key="CarToStringConverter"/>
-        <Converters:ClientToStringConverter x:Key="ClientToStringConverter"/>
-        <Converters:CarManufacturerToStringConverter x:Key="CarManufacturerToStringConverter"/>
-        <Converters:CarModelToStringConverter x:Key="CarModelToStringConverter"/>
-        <Converters:ColorToBackgroundColorConverter x:Key="ColorToBackgroundColorConverter"/>
+        <Converters:CarToStringConverter x:Key="CarToStringConverter" />
+        <Converters:ClientToStringConverter x:Key="ClientToStringConverter" />
+        <Converters:CarManufacturerToStringConverter x:Key="CarManufacturerToStringConverter" />
+        <Converters:CarModelToStringConverter x:Key="CarModelToStringConverter" />
+        <Converters:ColorToBackgroundColorConverter x:Key="ColorToBackgroundColorConverter" />
     </Application.Resources>
 </Application>

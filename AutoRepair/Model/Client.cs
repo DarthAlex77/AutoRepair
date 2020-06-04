@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using ReactiveUI;
 
 namespace AutoRepair.Model
@@ -7,19 +8,17 @@ namespace AutoRepair.Model
     public class Client : ReactiveObject
     {
         #region Constructors
-        public Client()
-        {
 
-        }
+        public Client() { }
 
         public Client(string firstname, string lastName, string patronymic, string personalId, string phoneNumber, string address)
         {
-            _firstname = firstname;
-            _lastName = lastName;
-            _patronymic = patronymic;
-            _personalId = personalId;
+            _firstname   = firstname;
+            _lastName    = lastName;
+            _patronymic  = patronymic;
+            _personalId  = personalId;
             _phoneNumber = phoneNumber;
-            _address = address;
+            _address     = address;
         }
 
         #endregion
@@ -27,6 +26,7 @@ namespace AutoRepair.Model
         #region ClientIDProperty
 
         private int _clientId;
+
         public int ClientID
         {
             get => _clientId;
@@ -38,7 +38,7 @@ namespace AutoRepair.Model
         #region FirstNameProperty
 
         private string _firstname;
-
+        [Required]
         public string FirstName
         {
             get => _firstname;
@@ -50,7 +50,7 @@ namespace AutoRepair.Model
         #region LastNameProperty
 
         private string _lastName;
-
+        [Required]
         public string LastName
         {
             get => _lastName;
@@ -62,7 +62,6 @@ namespace AutoRepair.Model
         #region PatronymicProperty
 
         private string _patronymic;
-
         public string Patronymic
         {
             get => _patronymic;
@@ -74,7 +73,7 @@ namespace AutoRepair.Model
         #region PersonalIDProperty
 
         private string _personalId;
-
+        [Required]
         public string PersonalId
         {
             get => _personalId;
@@ -86,7 +85,7 @@ namespace AutoRepair.Model
         #region PhoneNumberProperty
 
         private string _phoneNumber;
-
+        [Required]
         public string PhoneNumber
         {
             get => _phoneNumber;
@@ -110,6 +109,7 @@ namespace AutoRepair.Model
         #region ClientCarsProperty
 
         private List<Car> _carsList;
+
         [Browsable(false)]
         public List<Car> ClientCars
         {
@@ -118,6 +118,5 @@ namespace AutoRepair.Model
         }
 
         #endregion
-
     }
 }

@@ -3,7 +3,7 @@
 namespace AutoRepair.View
 {
     /// <summary>
-    /// Логика взаимодействия для SparesTab.xaml
+    ///     Логика взаимодействия для SparesTab.xaml
     /// </summary>
     public partial class SparesTab : UserControl
     {

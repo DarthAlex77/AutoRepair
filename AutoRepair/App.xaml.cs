@@ -1,15 +1,16 @@
 ﻿using System.Windows;
+using Syncfusion.Licensing;
 
 namespace AutoRepair
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
         public App()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjYxNDY5QDMxMzgyZTMxMmUzMEMyYWRqYmpYbGprdkRNTy9UNzIvbDlYeW5BTGVvUFMwK2RmemVjdzB2T2s9");
+            SyncfusionLicenseProvider.RegisterLicense("MjYxNDY5QDMxMzgyZTMxMmUzMEMyYWRqYmpYbGprdkRNTy9UNzIvbDlYeW5BTGVvUFMwK2RmemVjdzB2T2s9");
         }
     }
 }

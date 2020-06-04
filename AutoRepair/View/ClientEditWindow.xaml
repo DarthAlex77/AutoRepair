@@ -11,7 +11,7 @@
         Width="560">
 
     <Window.DataContext>
-        <vm:ClientEditWindowViewModel/>
+        <vm:ClientEditWindowViewModel />
     </Window.DataContext>
 
     <i:Interaction.Behaviors>
@@ -22,87 +22,90 @@
         <Style TargetType="Window">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding WindowState}" Value="0">
-                    <Setter Property="Title" Value="Новый Клиент"/>
+                    <Setter Property="Title" Value="Новый Клиент" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding WindowState}" Value="1">
-                    <Setter Property="Title" Value="Изменение данных клиента"/>
+                    <Setter Property="Title" Value="Изменение данных клиента" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding WindowState}" Value="2">
-                    <Setter Property="Title" Value="Выбор клиента"/>
+                    <Setter Property="Title" Value="Выбор клиента" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Style>
 
     <Grid>
-        <Grid.RowDefinitions >
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding WindowState}" Value="2">
-                            <Setter Property="Visibility"  Value="Collapsed"/>
+                            <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Margin="8" Watermark="Фамилия" Text="{Binding LastName}"/>
-            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="8" Watermark="Имя" Text="{Binding FirstName}"/>
-            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Margin="8" Watermark="Отчество" Text="{Binding Patronymic}"/>
-            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="8" Watermark="№ Документа Уд. Личности" Text="{Binding PersonalId}"/>
-            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Margin="8" Watermark="№ Номер Телефона" Text="{Binding PhoneNumber}"/>
-            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="8" Watermark="Адрес" Text="{Binding Address}"/>
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Margin="8" Watermark="Фамилия" Text="{Binding LastName}" />
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="8" Watermark="Имя" Text="{Binding FirstName}" />
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Margin="8" Watermark="Отчество" Text="{Binding Patronymic}" />
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="8" Watermark="№ Документа Уд. Личности"
+                             Text="{Binding PersonalId}" />
+            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Margin="8" Watermark="№ Номер Телефона"
+                             Text="{Binding PhoneNumber}" />
+            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="8" Watermark="Адрес" Text="{Binding Address}" />
         </Grid>
-        <sf:SfDataGrid Grid.Row="1" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" AutoGenerateColumns="False">
+        <sf:SfDataGrid Grid.Row="1" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}"
+                       AutoGenerateColumns="False">
             <sf:SfDataGrid.Columns>
-                <sf:GridTextColumn Width="80" HeaderText="Фамилия" MappingName="LastName"/>
-                <sf:GridTextColumn Width="80" HeaderText="Имя" MappingName="FirstName"/>
-                <sf:GridTextColumn Width="80" HeaderText="Отчество" MappingName="Patronymic"/>
-                <sf:GridTextColumn Width="80" HeaderText="Паспорт" MappingName="PersonalId"/>
-                <sf:GridTextColumn Width="80" HeaderText="Телефон" MappingName="PhoneNumber"/>
-                <sf:GridTextColumn ColumnSizer="AutoWithLastColumnFill" HeaderText="Адрес" MappingName="Address"/>
+                <sf:GridTextColumn Width="80" HeaderText="Фамилия" MappingName="LastName" />
+                <sf:GridTextColumn Width="80" HeaderText="Имя" MappingName="FirstName" />
+                <sf:GridTextColumn Width="80" HeaderText="Отчество" MappingName="Patronymic" />
+                <sf:GridTextColumn Width="80" HeaderText="Паспорт" MappingName="PersonalId" />
+                <sf:GridTextColumn Width="80" HeaderText="Телефон" MappingName="PhoneNumber" />
+                <sf:GridTextColumn ColumnSizer="AutoWithLastColumnFill" HeaderText="Адрес" MappingName="Address" />
             </sf:SfDataGrid.Columns>
             <sf:SfDataGrid.Style>
                 <Style TargetType="sf:SfDataGrid">
-                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="Visibility" Value="Collapsed" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding WindowState}" Value="2">
-                            <Setter Property="Visibility"  Value="Visible"/>
+                            <Setter Property="Visibility" Value="Visible" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </sf:SfDataGrid.Style>
         </sf:SfDataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" FlowDirection="RightToLeft">
-            <Button Width="80" Margin="2" IsDefault="True" >
+            <Button Width="80" Margin="2" IsDefault="True">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding WindowState}" Value="0">
-                                <Setter Property="Content" Value="Добавить"/>
-                                <Setter Property="Command" Value="{Binding AddClientCommand}"/>
+                                <Setter Property="Content" Value="Добавить" />
+                                <Setter Property="Command" Value="{Binding AddClientCommand}" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding WindowState}" Value="1">
-                                <Setter Property="Content" Value="Изменить"/>
-                                <Setter Property="Command" Value="{Binding EditClientCommand}"/>
+                                <Setter Property="Content" Value="Изменить" />
+                                <Setter Property="Command" Value="{Binding EditClientCommand}" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding WindowState}" Value="2">
-                                <Setter Property="Content" Value="Выбрать"/>
-                                <Setter Property="Command" Value="{Binding SelectClientCommand}"/>
+                                <Setter Property="Content" Value="Выбрать" />
+                                <Setter Property="Command" Value="{Binding SelectClientCommand}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

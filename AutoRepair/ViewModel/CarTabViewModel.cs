@@ -7,35 +7,43 @@ using AutoRepair.View;
 using DynamicData.Binding;
 using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
-using MessageBox = System.Windows.MessageBox;
 
 namespace AutoRepair.ViewModel
 {
-    internal class AutoTabViewModel : ReactiveObject
+    internal class CarTabViewModel : ReactiveObject
     {
+        #region IsCarSelectedProperty
+
+        private IObservable<bool> IsCarSelected => this.WhenAnyValue(x => x.SelectedCar).Select(x => x != null);
+
+        #endregion
+
+        #region CarsProperty
+
+        public ObservableCollectionExtended<Car> Cars { get; set; }
+
+        #endregion
+
         #region Constructor
-        public AutoTabViewModel()
+
+        public CarTabViewModel()
         {
-            EditCarCommand = ReactiveCommand.Create(EditCar, IsCarSelected);
-            DeleteCarCommand = ReactiveCommand.Create(DeleteCar, IsCarSelected);
-            AddCarCommand = ReactiveCommand.Create(AddCar);
+            EditCarCommand                      =  ReactiveCommand.Create(EditCar, IsCarSelected);
+            DeleteCarCommand                    =  ReactiveCommand.Create(DeleteCar, IsCarSelected);
+            AddCarCommand                       =  ReactiveCommand.Create(AddCar);
             UpdateDatabaseEvent.DatabaseUpdated += DataBaseUpdated;
-            Cars=new ObservableCollectionExtended<Car>();
+            Cars                                =  new ObservableCollectionExtended<Car>();
             DataBaseUpdated();
         }
 
         private void DataBaseUpdated()
         {
-            using (AppContext db=new AppContext())
+            using (AppContext db = new AppContext())
             {
-                Cars.Load(db.Cars.Include(x=>x.CarOwner).Include(x=>x.CarModel));
+                Cars.Load(db.Cars.Include(x => x.CarOwner).Include(x => x.CarModel));
             }
         }
 
-        #endregion
-
-        #region IsCarSelectedProperty
-        private IObservable<bool> IsCarSelected => this.WhenAnyValue(x => x.SelectedCar).Select(x => x != null);
         #endregion
 
         #region EditCarCommand
@@ -44,10 +52,9 @@ namespace AutoRepair.ViewModel
 
         private void EditCar()
         {
-            new AutoEditWindow().ShowDialogAsync();
-            MessageBus.Current.SendMessage(SelectedCar.CarId,"EditCarId");
+            new CarEditWindow().ShowDialogAsync();
+            MessageBus.Current.SendMessage(SelectedCar.CarId, "EditCarId");
         }
-
 
         #endregion
 
@@ -57,8 +64,8 @@ namespace AutoRepair.ViewModel
 
         private void AddCar()
         {
-            new AutoEditWindow().ShowDialogAsync();
-            MessageBus.Current.SendMessage(true,"AddMode");
+            new CarEditWindow().ShowDialogAsync();
+            MessageBus.Current.SendMessage(true, "AddMode");
         }
 
         #endregion
@@ -70,7 +77,7 @@ namespace AutoRepair.ViewModel
         private void DeleteCar()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Вы действительно хотите удалить машину", "Удалить?",
-                            MessageBoxButton.YesNo);
+                    MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 using (AppContext db = new AppContext())
@@ -79,15 +86,10 @@ namespace AutoRepair.ViewModel
                     db.Cars.Remove(car);
                     db.SaveChanges();
                 }
+
                 UpdateDatabaseEvent.OnDatabaseUpdated();
             }
         }
-
-        #endregion
-
-        #region CarsProperty
-
-        public ObservableCollectionExtended<Car> Cars { get; set; }
 
         #endregion
 

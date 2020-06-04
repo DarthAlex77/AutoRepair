@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using System.ComponentModel.DataAnnotations;
+using ReactiveUI;
 
 namespace AutoRepair.Model
 {
@@ -6,14 +7,12 @@ namespace AutoRepair.Model
     {
         #region Construcotrs
 
-        public CarModel()
-        {
-        }
+        public CarModel() { }
 
         public CarModel(string manufacturer, string model)
         {
             _manufacturer = manufacturer;
-            _model = model;
+            _model        = model;
         }
 
         #endregion
@@ -33,7 +32,7 @@ namespace AutoRepair.Model
         #region ManufacturerProperty
 
         private string _manufacturer;
-
+        [Required]
         public string Manufacturer
         {
             get => _manufacturer;
@@ -45,7 +44,7 @@ namespace AutoRepair.Model
         #region ModelProperty
 
         private string _model;
-
+        [Required]
         public string Model
         {
             get => _model;

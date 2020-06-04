@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ReactiveUI;
+﻿using ReactiveUI;
 
 namespace AutoRepair.Model
 {
@@ -7,13 +6,11 @@ namespace AutoRepair.Model
     {
         #region Constructors
 
-        public Order()
-        {
-        }
+        public Order() { }
 
         public Order(Car car, Client client)
         {
-            _car = car;
+            _car    = car;
             _client = client;
         }
 

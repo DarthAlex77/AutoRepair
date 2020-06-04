@@ -3,7 +3,7 @@
 namespace AutoRepair.View
 {
     /// <summary>
-    /// Логика взаимодействия для OrderTab.xaml
+    ///     Логика взаимодействия для OrderTab.xaml
     /// </summary>
     public partial class OrderTab : UserControl
     {

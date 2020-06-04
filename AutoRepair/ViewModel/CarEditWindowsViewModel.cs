@@ -1,28 +1,29 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive;
 using System.Windows.Media;
 using AutoRepair.Model;
+using AutoRepair.Validators;
 using AutoRepair.View;
-using AutoRepair;
 using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
+using ReactiveUI.FluentValidation;
 
 namespace AutoRepair.ViewModel
 {
-    internal class AutoEditWindowsViewModel : ReactiveObject
+    public class CarEditWindowsViewModel : ReactiveValidationObject
     {
         #region Constructors
 
-        public AutoEditWindowsViewModel()
+        public CarEditWindowsViewModel() : base(new CarValidator())
         {
-            AddCarCommand = ReactiveCommand.Create(AddCar);
-            EditCarCommand = ReactiveCommand.Create(EditCar);
+            AddCarCommand      = ReactiveCommand.Create(AddCar,isValid);
+            EditCarCommand     = ReactiveCommand.Create(EditCar,isValid);
             SelectOwnerCommand = ReactiveCommand.Create(SelectOwner);
             MessageBus.Current.Listen<bool>("AddMode").Subscribe(x => IsAddMode = x);
             MessageBus.Current.Listen<int>("EditCarId").Subscribe(SetCarProperties);
             MessageBus.Current.Listen<Client>("SelectedClient").Subscribe(x => CarOwner = x);
+            Validator();
         }
 
         #endregion
@@ -39,16 +40,16 @@ namespace AutoRepair.ViewModel
                 car = db.Cars.Find(carId);
             }
 
-            CarId = car.CarId;
+            CarId           = car.CarId;
             CarManufacturer = car.CarModel.Manufacturer;
-            CarModel = car.CarModel.Model;
-            Color = car.Color;
-            CarProduceYear = car.CarProduceYear;
-            CarNumber = car.CarNumber;
-            CarVin = car.CarVin;
+            CarModel        = car.CarModel.Model;
+            Color           = car.Color;
+            CarProduceYear  = car.CarProduceYear;
+            CarNumber       = car.CarNumber;
+            CarVin          = car.CarVin;
             CarEngineNumber = car.CarEngineNumber;
-            CarBodyNumber = car.CarBodyNumber;
-            CarOwner = car.CarOwner;
+            CarBodyNumber   = car.CarBodyNumber;
+            CarOwner        = car.CarOwner;
         }
 
         #endregion
@@ -62,12 +63,13 @@ namespace AutoRepair.ViewModel
             using (AppContext db = new AppContext())
             {
                 CarModel carModel =
-                    db.CarModels.FirstOrDefault(x => x.Manufacturer == CarManufacturer && x.Model == CarModel) ??
-                    new CarModel(CarManufacturer, CarModel);
+                        db.CarModels.FirstOrDefault(x => x.Manufacturer == CarManufacturer && x.Model == CarModel) ??
+                        new CarModel(CarManufacturer, CarModel);
                 db.Cars.Add(new Car(carModel, Color, CarProduceYear, CarNumber, CarVin, CarEngineNumber,
-                    CarBodyNumber, db.Find<Client>(CarOwner.ClientID)));
+                        CarBodyNumber, db.Find<Client>(CarOwner.ClientID)));
                 db.SaveChanges();
             }
+
             UpdateDatabaseEvent.OnDatabaseUpdated();
             CloseTrigger = true;
         }
@@ -75,36 +77,43 @@ namespace AutoRepair.ViewModel
         #endregion
 
         #region EditCarCommand
+
         public ReactiveCommand<Unit, Unit> EditCarCommand { get; }
+
         private void EditCar()
         {
-            using (AppContext db=new AppContext())
+            using (AppContext db = new AppContext())
             {
-               Car car= db.Cars.Find(CarId);
-               CarModel carModel = db.CarModels.FirstOrDefault(x => x.Manufacturer == CarManufacturer && x.Model == CarModel) ?? new CarModel(CarManufacturer, CarModel);
-               car.CarModel = carModel;
-               car.Color = Color;
-               car.CarProduceYear = CarProduceYear;
-               car.CarNumber = CarNumber;
-               car.CarVin = CarVin;
-               car.CarEngineNumber = CarEngineNumber;
-               car.CarBodyNumber = CarBodyNumber;
-               CarOwner = CarOwner;
-               db.SaveChanges();
+                Car car = db.Cars.Find(CarId);
+                CarModel carModel = db.CarModels.FirstOrDefault(x => x.Manufacturer == CarManufacturer && x.Model == CarModel) ?? new CarModel(CarManufacturer, CarModel);
+                Client carOwner = db.Clients.Find(CarOwner.ClientID);
+                car.CarModel        = carModel;
+                car.Color           = Color;
+                car.CarProduceYear  = CarProduceYear;
+                car.CarNumber       = CarNumber;
+                car.CarVin          = CarVin;
+                car.CarEngineNumber = CarEngineNumber;
+                car.CarBodyNumber   = CarBodyNumber;
+                car.CarOwner        = carOwner;
+                db.SaveChanges();
             }
+
             UpdateDatabaseEvent.OnDatabaseUpdated();
             CloseTrigger = true;
         }
+
         #endregion
 
         #region CloseTriggerProperty
 
         private bool _closeTrigger;
+
         public bool CloseTrigger
         {
             get => _closeTrigger;
             set => this.RaiseAndSetIfChanged(ref _closeTrigger, value);
         }
+
         #endregion
 
         #region SelectOwnerCommand
@@ -136,10 +145,15 @@ namespace AutoRepair.ViewModel
         #region CarIdProperty
 
         private int _carId;
+
         public int CarId
         {
             get => _carId;
-            set => this.RaiseAndSetIfChanged(ref _carId, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _carId, value);
+                Validator();
+            }
         }
 
         #endregion
@@ -151,7 +165,11 @@ namespace AutoRepair.ViewModel
         public string CarManufacturer
         {
             get => _carManufacturer;
-            set => this.RaiseAndSetIfChanged(ref _carManufacturer, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _carManufacturer, value);
+                Validator();
+            }
         }
 
         #endregion
@@ -163,7 +181,11 @@ namespace AutoRepair.ViewModel
         public string CarModel
         {
             get => _carModel;
-            set => this.RaiseAndSetIfChanged(ref _carModel, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _carModel, value);
+                Validator();
+            }
         }
 
         #endregion
@@ -175,7 +197,11 @@ namespace AutoRepair.ViewModel
         public Color Color
         {
             get => _color;
-            set => this.RaiseAndSetIfChanged(ref _color, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _color, value);
+                Validator();
+            }
         }
 
         #endregion
@@ -187,7 +213,11 @@ namespace AutoRepair.ViewModel
         public string CarProduceYear
         {
             get => _carProduceYear;
-            set => this.RaiseAndSetIfChanged(ref _carProduceYear, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _carProduceYear, value);
+                Validator();
+            }
         }
 
         #endregion
@@ -199,7 +229,11 @@ namespace AutoRepair.ViewModel
         public string CarNumber
         {
             get => _carNumber;
-            set => this.RaiseAndSetIfChanged(ref _carNumber, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _carNumber, value); 
+                Validator();
+            }
         }
 
         #endregion
@@ -211,7 +245,11 @@ namespace AutoRepair.ViewModel
         public string CarVin
         {
             get => _carVin;
-            set => this.RaiseAndSetIfChanged(ref _carVin, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _carVin, value); 
+                Validator();
+            }
         }
 
         #endregion
@@ -223,7 +261,11 @@ namespace AutoRepair.ViewModel
         public string CarEngineNumber
         {
             get => _carEngineNumber;
-            set => this.RaiseAndSetIfChanged(ref _carEngineNumber, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _carEngineNumber, value);
+                Validator();
+            }
         }
 
         #endregion
@@ -235,7 +277,11 @@ namespace AutoRepair.ViewModel
         public string CarBodyNumber
         {
             get => _carBodyNumber;
-            set => this.RaiseAndSetIfChanged(ref _carBodyNumber, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _carBodyNumber, value); 
+                Validator();
+            }
         }
 
         #endregion
@@ -247,11 +293,29 @@ namespace AutoRepair.ViewModel
         public Client CarOwner
         {
             get => _owner;
-            set => this.RaiseAndSetIfChanged(ref _owner, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _owner, value); 
+                Validator();
+            }
         }
 
         #endregion
 
+        #endregion
+
+        #region ValidatorMethod
+
+        private void Validator()
+        {
+            RaiseValidation(nameof(CarManufacturer));
+            RaiseValidation(nameof(CarModel));
+            RaiseValidation(nameof(Color));
+            RaiseValidation(nameof(CarProduceYear));
+            RaiseValidation(nameof(CarNumber));
+            RaiseValidation(nameof(CarVin));
+            RaiseValidation(nameof(CarOwner));
+        }
         #endregion
     }
 }

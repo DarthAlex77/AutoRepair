@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows.Media;
 using ReactiveUI;
@@ -9,21 +10,19 @@ namespace AutoRepair.Model
     {
         #region Construcotrs
 
-        public Car()
-        {
-        }
+        public Car() { }
 
-        public Car(CarModel carModel, System.Windows.Media.Color color, string carProduceYear, string carNumber, string carVin,
-            string carEngineNumber, string carBodyNumber, Client owner)
+        public Car(CarModel carModel,        Color  color,         string carProduceYear, string carNumber, string carVin,
+                   string   carEngineNumber, string carBodyNumber, Client owner)
         {
-            _carModel = carModel;
-            _color = color;
-            _carProduceYear = carProduceYear;
-            _carNumber = carNumber;
-            _carVin = carVin;
+            _carModel        = carModel;
+            _color           = color;
+            _carProduceYear  = carProduceYear;
+            _carNumber       = carNumber;
+            _carVin          = carVin;
             _carEngineNumber = carEngineNumber;
-            _carBodyNumber = carBodyNumber;
-            _owner = owner;
+            _carBodyNumber   = carBodyNumber;
+            _owner           = owner;
         }
 
         #endregion
@@ -31,6 +30,7 @@ namespace AutoRepair.Model
         #region CarIdProperty
 
         private int _carId;
+
         public int CarId
         {
             get => _carId;
@@ -42,7 +42,7 @@ namespace AutoRepair.Model
         #region CarModelProperty
 
         private CarModel _carModel;
-
+        [Required]
         public CarModel CarModel
         {
             get => _carModel;
@@ -52,27 +52,30 @@ namespace AutoRepair.Model
         #endregion
 
         #region ColorProperty
-        [Browsable(false), Column("Color")]
+        [Required]
+        [Browsable(false)]
+        [Column("Color")]
         public string Argb
         {
             get => _color.ToString();
             set => _color = (Color) ColorConverter.ConvertFromString(value);
         }
 
-        private System.Windows.Media.Color _color;
+        private Color _color;
+
         [NotMapped]
-        public System.Windows.Media.Color Color
+        public Color Color
         {
             get => _color;
             set => this.RaiseAndSetIfChanged(ref _color, value);
         }
-    
+
         #endregion
 
         #region CarProduceYearProperty
 
         private string _carProduceYear;
-
+        [Required]
         public string CarProduceYear
         {
             get => _carProduceYear;
@@ -84,7 +87,7 @@ namespace AutoRepair.Model
         #region CarNumberProperty
 
         private string _carNumber;
-
+        [Required]
         public string CarNumber
         {
             get => _carNumber;
@@ -96,7 +99,7 @@ namespace AutoRepair.Model
         #region CarVINProperty
 
         private string _carVin;
-
+        [Required]
         public string CarVin
         {
             get => _carVin;
@@ -108,7 +111,6 @@ namespace AutoRepair.Model
         #region CarEngineNumberProperty
 
         private string _carEngineNumber;
-
         public string CarEngineNumber
         {
             get => _carEngineNumber;
@@ -132,7 +134,7 @@ namespace AutoRepair.Model
         #region CarOwnerProperty
 
         private Client _owner;
-
+        [Required]
         public Client CarOwner
         {
             get => _owner;

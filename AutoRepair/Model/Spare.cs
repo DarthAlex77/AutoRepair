@@ -1,27 +1,28 @@
-﻿using ReactiveUI;
+﻿using System.ComponentModel.DataAnnotations;
+using ReactiveUI;
 
 namespace AutoRepair.Model
 {
     public class Spare : ReactiveObject
     {
         #region Construcotrs
-        public Spare()
-        {
-        }
+
+        public Spare() { }
 
         public Spare(string spareName, string spareWarranty, string sparePrice)
         {
-            _spareName = spareName;
+            _spareName     = spareName;
             _spareWarranty = spareWarranty;
-            _sparePrice = sparePrice;
+            _sparePrice    = sparePrice;
         }
 
         #endregion
 
         #region SpareIDProperty
 
-        private string _spareId;
-        public string SpareId
+        private int _spareId;
+        [Key]
+        public int SpareId
         {
             get => _spareId;
             set => this.RaiseAndSetIfChanged(ref _spareId, value);

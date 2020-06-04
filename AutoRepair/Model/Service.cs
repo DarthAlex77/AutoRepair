@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using ReactiveUI;
+﻿using ReactiveUI;
 
 namespace AutoRepair.Model
 {
@@ -8,15 +6,14 @@ namespace AutoRepair.Model
     {
         #region Constructors
 
-        public Service()
-        {
-        }
+        public Service() { }
 
-        public Service(string serviceName, string servicesPrice, string warrantyPeriod)
+        public Service(string serviceName, string servicesPrice, string warrantyPeriod, string serviceNote)
         {
-            _serviceName = serviceName;
-            _servicesPrice = servicesPrice;
+            _serviceName    = serviceName;
+            _servicesPrice  = servicesPrice;
             _warrantyPeriod = warrantyPeriod;
+            _serviceNote    = serviceNote;
         }
 
         #endregion
@@ -69,5 +66,16 @@ namespace AutoRepair.Model
 
         #endregion
 
+        #region ServiceNoteProperty
+
+        private string _serviceNote;
+
+        public string ServiceNote
+        {
+            get => _serviceNote;
+            set => this.RaiseAndSetIfChanged(ref _serviceNote, value);
+        }
+
+        #endregion
     }
 }

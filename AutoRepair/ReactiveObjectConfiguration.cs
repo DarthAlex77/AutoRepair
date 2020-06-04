@@ -5,7 +5,7 @@ using ReactiveUI;
 namespace AutoRepair
 {
     public abstract class ReactiveObjectConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
-        where TEntity : ReactiveObject
+            where TEntity : ReactiveObject
     {
         public void Configure(EntityTypeBuilder<TEntity> builder)
         {
