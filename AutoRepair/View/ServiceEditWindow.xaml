@@ -20,7 +20,7 @@
             <Setter Property="Title" Value="Добавить услугу"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding WindowEditMode}" Value="True">
-                    <Setter Property="Title" Value="Изменить услугу"/>
+                    <Setter  Property="Title" Value="Изменить услугу"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -38,9 +38,9 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Watermark="Название" Margin="8" Text="{Binding Service.ServiceName}"/>
-        <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Watermark="Цена" Margin="8" Text="{Binding Service.ServicePrice}"/>
+        <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Watermark="Цена"     Margin="8" Text="{Binding Service.ServicePrice}"/>
         <sf:SfTextBoxExt Grid.Row="0" Grid.Column="2" Watermark="Гарантийный период" Margin="8" Text="{Binding Service.WarrantyPeriod}"/>
-        <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="{Binding Service.ServiceNote}"/>
+        <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  TextWrapping="Wrap"  Text="{Binding Service.ServiceNote}"/>
         <Button Grid.Row="2" Grid.Column="2" Margin="80,2,5,2">
             <Button.Style>
                 <Style TargetType="Button">

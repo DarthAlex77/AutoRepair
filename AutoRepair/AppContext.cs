@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using AutoRepair.Model;
+﻿using AutoRepair.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace AutoRepair
 {

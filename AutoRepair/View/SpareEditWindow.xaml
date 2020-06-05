@@ -28,16 +28,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition  />
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <sf:SfTextBoxExt Grid.Row="0" Watermark="Название" Margin="8"
-                         Text="{Binding Spare.SpareName}" />
-        <sf:SfTextBoxExt Grid.Row="1" Watermark="Цена" Margin="8" Text="{Binding Spare.SparePrice}" />
-        <sf:SfTextBoxExt Grid.Row="2" Watermark="Гарантийный период" Margin="8"
-                         Text="{Binding Spare.SpareWarranty}" />
+        <sf:SfTextBoxExt Grid.Row="0" Watermark="Название" Margin="8" Text="{Binding Spare.SpareName}" />
+        <sf:SfTextBoxExt Grid.Row="1" Watermark="Цена"     Margin="8" Text="{Binding Spare.SparePrice}" />
+        <sf:SfTextBoxExt Grid.Row="2" Watermark="Гарантийный период" Margin="8" Text="{Binding Spare.SpareWarranty}" />
         <Button Grid.Row="3" Margin="150,2,5,2">
             <Button.Style>
                 <Style TargetType="Button">

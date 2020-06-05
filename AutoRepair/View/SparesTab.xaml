@@ -7,9 +7,11 @@
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <UserControl.DataContext>
         <vm:SparesTabViewModel/>
-    </UserControl.DataContext>
+    </UserControl.DataContext> 
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*" />
@@ -17,15 +19,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Новая часть" Width="100" Margin="5,2,5,2" Command="{Binding AddSpareCommand}" />
+            <Button Content="Новая часть"    Width="100" Margin="5,2,5,2" Command="{Binding AddSpareCommand}" />
             <Button Content="Изменить часть" Width="100" Margin="5,2,5,2" Command="{Binding EditSpareCommand}" />
-            <Button Content="Удалить часть" Width="100" Margin="5,2,5,2" Command="{Binding DeleteSpareCommand}" />
+            <Button Content="Удалить часть"  Width="100" Margin="5,2,5,2" Command="{Binding DeleteSpareCommand}" />
         </StackPanel>
-        <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding spares}"
-                       SelectedItem="{Binding SelectedSpare}" SelectionUnit="Row" AllowSorting="False">
+        <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Spares}" SelectedItem="{Binding SelectedSpare}" SelectionUnit="Row" AllowSorting="False">
             <sf:SfDataGrid.Columns>
                 <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Название" MappingName="SpareName"/>
-                <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Цена" MappingName="SparePrice"/>
+                <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Цена"     MappingName="SparePrice"/>
                 <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Гарантия" MappingName="SpareWarranty"/>
             </sf:SfDataGrid.Columns>
         </sf:SfDataGrid>

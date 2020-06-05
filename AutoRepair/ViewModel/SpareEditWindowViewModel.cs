@@ -5,12 +5,14 @@ using ReactiveUI;
 
 namespace AutoRepair.ViewModel
 {
-    internal class SpareEditWindowViewModel : ReactiveObject
+    internal class SpareEditWindowViewModel :ReactiveObject
     {
+        #region Constructor
+
         public SpareEditWindowViewModel()
         {
             MessageBus.Current.Listen<bool>("SpareEditWindowMode").Subscribe(x => WindowEditMode = x);
-            MessageBus.Current.Listen<Spare>("EditSpare").Subscribe(x => Spare = x);
+            MessageBus.Current.Listen<Spare>("EditSpare").Subscribe(x => Spare                   = x);
             AddSpareCommand  = ReactiveCommand.Create(AddSpare);
             EditSpareCommand = ReactiveCommand.Create(EditSpare);
             if (WindowEditMode)
@@ -18,6 +20,8 @@ namespace AutoRepair.ViewModel
             else
                 Spare = new Spare();
         }
+
+        #endregion
 
         #region WindowModeProperty
 
@@ -63,9 +67,10 @@ namespace AutoRepair.ViewModel
         {
             using (AppContext db = new AppContext())
             {
-                db.Spares.Add(new Spare(Spare.SpareName,Spare.SpareWarranty,Spare.SparePrice));
+                db.Spares.Add(new Spare(Spare.SpareName, Spare.SpareWarranty, Spare.SparePrice));
                 db.SaveChanges();
             }
+
             UpdateDatabaseEvent.OnDatabaseUpdated();
             CloseTrigger = true;
         }
@@ -80,9 +85,9 @@ namespace AutoRepair.ViewModel
         {
             using (AppContext db = new AppContext())
             {
-                Spare spare = db.Spares.Find(Spare.SpareId);
-                spare.SparePrice = Spare.SparePrice;
-                spare.SpareName = Spare.SpareName;
+                Spare spare         = db.Spares.Find(Spare.SpareId);
+                spare.SparePrice    = Spare.SparePrice;
+                spare.SpareName     = Spare.SpareName;
                 spare.SpareWarranty = Spare.SpareWarranty;
                 db.SaveChanges();
             }

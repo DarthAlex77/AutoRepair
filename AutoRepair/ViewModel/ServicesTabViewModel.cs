@@ -22,6 +22,9 @@ namespace AutoRepair.ViewModel
         }
 
         #endregion
+
+        #region DataBaseUpdatedMethod
+
         private void DataBaseUpdated()
         {
             using (AppContext db = new AppContext())
@@ -29,6 +32,8 @@ namespace AutoRepair.ViewModel
                 Services.Load(db.Services);
             }
         }
+
+        #endregion
 
         #region IsServiceSelectedProperty
 

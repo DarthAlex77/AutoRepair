@@ -7,9 +7,11 @@
              xmlns:vm="clr-namespace:AutoRepair.ViewModel"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+
     <UserControl.DataContext>
         <vm:CarTabViewModel />
     </UserControl.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*" />
@@ -17,9 +19,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Новая Машина" Width="100" Margin="5,2,5,2" Command="{Binding AddCarCommand}" />
+            <Button Content="Новая Машина"    Width="100" Margin="5,2,5,2" Command="{Binding AddCarCommand}" />
             <Button Content="Изменить машину" Width="100" Margin="5,2,5,2" Command="{Binding EditCarCommand}" />
-            <Button Content="Удалить машину" Width="100" Margin="5,2,5,2" Command="{Binding DeleteCarCommand}" />
+            <Button Content="Удалить машину"  Width="100" Margin="5,2,5,2" Command="{Binding DeleteCarCommand}" />
         </StackPanel>
         <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Cars}"
                        SelectedItem="{Binding SelectedCar}" SelectionUnit="Row" AllowSorting="False" RowHeight="35">

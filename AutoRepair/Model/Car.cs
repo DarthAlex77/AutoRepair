@@ -42,6 +42,7 @@ namespace AutoRepair.Model
         #region CarModelProperty
 
         private CarModel _carModel;
+
         [Required]
         public CarModel CarModel
         {
@@ -52,6 +53,7 @@ namespace AutoRepair.Model
         #endregion
 
         #region ColorProperty
+
         [Required]
         [Browsable(false)]
         [Column("Color")]
@@ -75,6 +77,7 @@ namespace AutoRepair.Model
         #region CarProduceYearProperty
 
         private string _carProduceYear;
+
         [Required]
         public string CarProduceYear
         {
@@ -87,6 +90,7 @@ namespace AutoRepair.Model
         #region CarNumberProperty
 
         private string _carNumber;
+
         [Required]
         public string CarNumber
         {
@@ -99,6 +103,7 @@ namespace AutoRepair.Model
         #region CarVINProperty
 
         private string _carVin;
+
         [Required]
         public string CarVin
         {
@@ -111,6 +116,7 @@ namespace AutoRepair.Model
         #region CarEngineNumberProperty
 
         private string _carEngineNumber;
+
         public string CarEngineNumber
         {
             get => _carEngineNumber;
@@ -134,6 +140,7 @@ namespace AutoRepair.Model
         #region CarOwnerProperty
 
         private Client _owner;
+
         [Required]
         public Client CarOwner
         {

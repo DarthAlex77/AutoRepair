@@ -60,15 +60,14 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Margin="8" Watermark="Фамилия" Text="{Binding LastName}" />
-            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="8" Watermark="Имя" Text="{Binding FirstName}" />
-            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Margin="8" Watermark="Отчество" Text="{Binding Patronymic}" />
-            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="8" Watermark="№ Документа Уд. Личности"
-                             Text="{Binding PersonalId}" />
-            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Margin="8" Watermark="№ Номер Телефона"
-                             Text="{Binding PhoneNumber}" />
-            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="8" Watermark="Адрес" Text="{Binding Address}" />
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Margin="8" Watermark="Фамилия" Text="{Binding Client.LastName}" />
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="8" Watermark="Имя" Text="{Binding Client.FirstName}" />
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Margin="8" Watermark="Отчество" Text="{Binding Client.Patronymic}" />
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="8" Watermark="№ Документа Уд. Личности" Text="{Binding Client.PersonalId}" />
+            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Margin="8" Watermark="№ Телефона" Text="{Binding Client.PhoneNumber}" />
+            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="8" Watermark="Адрес" Text="{Binding Client.Address}" />
         </Grid>
+
         <sf:SfDataGrid Grid.Row="1" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}"
                        AutoGenerateColumns="False">
             <sf:SfDataGrid.Columns>

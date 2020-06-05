@@ -13,20 +13,7 @@ namespace AutoRepair.ViewModel
 {
     internal class ClientTabViewModel : ReactiveObject
     {
-        #region IsClientSelectedProperty
-
-        private IObservable<bool> IsClientSelected => this.WhenAnyValue(x => x.SelectedClient).Select(x => x != null);
-
-        #endregion
-
-        #region ClientsProperty
-
-        public ObservableCollectionExtended<Client> Clients { get; set; }
-
-        #endregion
-
         #region Constructors
-
         public ClientTabViewModel()
         {
             AddClientCommand                    =  ReactiveCommand.Create(AddClient);
@@ -37,6 +24,9 @@ namespace AutoRepair.ViewModel
             DataBaseUpdated();
         }
 
+        #endregion
+
+        #region DataBaseUpdatedMethod
         private void DataBaseUpdated()
         {
             using (AppContext db = new AppContext())
@@ -44,6 +34,18 @@ namespace AutoRepair.ViewModel
                 Clients.Load(db.Clients.Include(x => x.ClientCars).ThenInclude(x => x.CarModel));
             }
         }
+
+        #endregion
+
+        #region IsClientSelectedProperty
+
+        private IObservable<bool> IsClientSelected => this.WhenAnyValue(x => x.SelectedClient).Select(x => x != null);
+
+        #endregion
+
+        #region ClientsProperty
+
+        public ObservableCollectionExtended<Client> Clients { get; set; }
 
         #endregion
 
@@ -99,7 +101,7 @@ namespace AutoRepair.ViewModel
                 using (AppContext db = new AppContext())
                 {
                     Client client = db.Clients.Include(x => x.ClientCars)
-                                      .First(x => x.ClientID == SelectedClient.ClientID);
+                                      .First(x => x.ClientId == SelectedClient.ClientId);
 
                     db.Clients.Remove(client);
                     db.SaveChanges();

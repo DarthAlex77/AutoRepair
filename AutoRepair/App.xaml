@@ -1,13 +1,12 @@
 ﻿<Application x:Class="AutoRepair.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Converters="clr-namespace:AutoRepair.Converters"
+             xmlns:converters="clr-namespace:AutoRepair.Converters"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-        <Converters:CarToStringConverter x:Key="CarToStringConverter" />
-        <Converters:ClientToStringConverter x:Key="ClientToStringConverter" />
-        <Converters:CarManufacturerToStringConverter x:Key="CarManufacturerToStringConverter" />
-        <Converters:CarModelToStringConverter x:Key="CarModelToStringConverter" />
-        <Converters:ColorToBackgroundColorConverter x:Key="ColorToBackgroundColorConverter" />
+        <converters:ClientToStringConverter x:Key="ClientToStringConverter" />
+        <converters:CarManufacturerToStringConverter x:Key="CarManufacturerToStringConverter" />
+        <converters:CarModelToStringConverter x:Key="CarModelToStringConverter" />
+        <converters:ColorToBackgroundColorConverter x:Key="ColorToBackgroundColorConverter" />
     </Application.Resources>
 </Application>

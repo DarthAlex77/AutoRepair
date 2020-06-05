@@ -15,12 +15,12 @@ namespace AutoRepair.ViewModel
             AddSpareCommand                     =  ReactiveCommand.Create(AddSpare);
             EditSpareCommand                    =  ReactiveCommand.Create(EditSpare, IsSpareSelected);
             DeleteSpareCommand                  =  ReactiveCommand.Create(DeleteSpare, IsSpareSelected);
-            spares                              =  new ObservableCollectionExtended<Spare>();
+            Spares                              =  new ObservableCollectionExtended<Spare>();
             UpdateDatabaseEvent.DatabaseUpdated += DataBaseUpdated;
             DataBaseUpdated();
         }
 
-        public ObservableCollectionExtended<Spare> spares { get; set; }
+        public ObservableCollectionExtended<Spare> Spares { get; set; }
 
         #region IsSpareSelectedProperty
 
@@ -32,7 +32,7 @@ namespace AutoRepair.ViewModel
         {
             using (AppContext db = new AppContext())
             {
-                spares.Load(db.Spares);
+                Spares.Load(db.Spares);
             }
         }
 

@@ -27,7 +27,7 @@ namespace AutoRepair.Model
 
         private int _clientId;
 
-        public int ClientID
+        public int ClientId
         {
             get => _clientId;
             set => this.RaiseAndSetIfChanged(ref _clientId, value);

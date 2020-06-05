@@ -19,9 +19,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Новая услуга" Width="100" Margin="5,2,5,2" Command="{Binding AddServiceCommand}" />
+            <Button Content="Новая услуга" Width="100"    Margin="5,2,5,2" Command="{Binding AddServiceCommand}" />
             <Button Content="Изменить услугу" Width="100" Margin="5,2,5,2" Command="{Binding EditServiceCommand}" />
-            <Button Content="Удалить услугу" Width="100" Margin="5,2,5,2" Command="{Binding DeleteServiceCommand}" />
+            <Button Content="Удалить услугу" Width="100"  Margin="5,2,5,2" Command="{Binding DeleteServiceCommand}" />
         </StackPanel>
         <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Services}"
                        SelectedItem="{Binding SelectedService}" SelectionUnit="Row" AllowSorting="False">

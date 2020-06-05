@@ -10,8 +10,22 @@ using ReactiveUI;
 
 namespace AutoRepair.ViewModel
 {
-    internal class CarTabViewModel : ReactiveObject
+    internal class CarTabViewModel :ReactiveObject
     {
+        #region Constructor
+
+        public CarTabViewModel()
+        {
+            EditCarCommand                      =  ReactiveCommand.Create(EditCar, IsCarSelected);
+            DeleteCarCommand                    =  ReactiveCommand.Create(DeleteCar, IsCarSelected);
+            AddCarCommand                       =  ReactiveCommand.Create(AddCar);
+            UpdateDatabaseEvent.DatabaseUpdated += DataBaseUpdated;
+            Cars                                =  new ObservableCollectionExtended<Car>();
+            DataBaseUpdated();
+        }
+
+        #endregion
+
         #region IsCarSelectedProperty
 
         private IObservable<bool> IsCarSelected => this.WhenAnyValue(x => x.SelectedCar).Select(x => x != null);
@@ -24,17 +38,19 @@ namespace AutoRepair.ViewModel
 
         #endregion
 
-        #region Constructor
+        #region SelectedCarProperty
 
-        public CarTabViewModel()
+        private Car _car;
+
+        public Car SelectedCar
         {
-            EditCarCommand                      =  ReactiveCommand.Create(EditCar, IsCarSelected);
-            DeleteCarCommand                    =  ReactiveCommand.Create(DeleteCar, IsCarSelected);
-            AddCarCommand                       =  ReactiveCommand.Create(AddCar);
-            UpdateDatabaseEvent.DatabaseUpdated += DataBaseUpdated;
-            Cars                                =  new ObservableCollectionExtended<Car>();
-            DataBaseUpdated();
+            get => _car;
+            set => this.RaiseAndSetIfChanged(ref _car, value);
         }
+
+        #endregion
+
+        #region DataBaseUpdatedMethod
 
         private void DataBaseUpdated()
         {
@@ -53,7 +69,7 @@ namespace AutoRepair.ViewModel
         private void EditCar()
         {
             new CarEditWindow().ShowDialogAsync();
-            MessageBus.Current.SendMessage(SelectedCar.CarId, "EditCarId");
+            MessageBus.Current.SendMessage(SelectedCar, "EditCar");
         }
 
         #endregion
@@ -76,7 +92,8 @@ namespace AutoRepair.ViewModel
 
         private void DeleteCar()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Вы действительно хотите удалить машину", "Удалить?",
+            MessageBoxResult messageBoxResult = MessageBox.Show("Вы действительно хотите удалить машину" + Environment.NewLine +
+                                                                "Внимание удаление машины приведет к удалению всех заказов на эту машину", "Удалить?",
                     MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
@@ -89,18 +106,6 @@ namespace AutoRepair.ViewModel
 
                 UpdateDatabaseEvent.OnDatabaseUpdated();
             }
-        }
-
-        #endregion
-
-        #region SelectedCarProperty
-
-        private Car _car;
-
-        public Car SelectedCar
-        {
-            get => _car;
-            set => this.RaiseAndSetIfChanged(ref _car, value);
         }
 
         #endregion

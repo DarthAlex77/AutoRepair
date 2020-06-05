@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reactive;
-using System.Windows.Media;
 using AutoRepair.Model;
 using AutoRepair.Validators;
 using AutoRepair.View;
-using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 using ReactiveUI.FluentValidation;
 
@@ -17,39 +15,28 @@ namespace AutoRepair.ViewModel
 
         public CarEditWindowsViewModel() : base(new CarValidator())
         {
-            AddCarCommand      = ReactiveCommand.Create(AddCar,isValid);
-            EditCarCommand     = ReactiveCommand.Create(EditCar,isValid);
+            AddCarCommand      = ReactiveCommand.Create(AddCar, isValid);
+            EditCarCommand     = ReactiveCommand.Create(EditCar, isValid);
             SelectOwnerCommand = ReactiveCommand.Create(SelectOwner);
-            MessageBus.Current.Listen<bool>("AddMode").Subscribe(x => IsAddMode = x);
-            MessageBus.Current.Listen<int>("EditCarId").Subscribe(SetCarProperties);
-            MessageBus.Current.Listen<Client>("SelectedClient").Subscribe(x => CarOwner = x);
+            MessageBus.Current.Listen<bool>  ("AddMode").Subscribe(x => IsAddMode = x);
+            MessageBus.Current.Listen<Car>   ("EditCar").Subscribe(x => Car = x);
+            MessageBus.Current.Listen<Client>("SelectedClient").Subscribe(x => Car.CarOwner = x);
             Validator();
         }
 
         #endregion
 
-        #region SetCarPropertiesMethod
+        #region ValidatorMethod
 
-        private void SetCarProperties(int carId)
+        private void Validator()
         {
-            Car car;
-            using (AppContext db = new AppContext())
-            {
-                db.CarModels.Load();
-                db.Clients.Load();
-                car = db.Cars.Find(carId);
-            }
-
-            CarId           = car.CarId;
-            CarManufacturer = car.CarModel.Manufacturer;
-            CarModel        = car.CarModel.Model;
-            Color           = car.Color;
-            CarProduceYear  = car.CarProduceYear;
-            CarNumber       = car.CarNumber;
-            CarVin          = car.CarVin;
-            CarEngineNumber = car.CarEngineNumber;
-            CarBodyNumber   = car.CarBodyNumber;
-            CarOwner        = car.CarOwner;
+            RaiseValidation(nameof(Car.CarModel.Manufacturer));
+            RaiseValidation(nameof(Car.CarModel.Model));
+            RaiseValidation(nameof(Car.Color));
+            RaiseValidation(nameof(Car.CarProduceYear));
+            RaiseValidation(nameof(Car.CarNumber));
+            RaiseValidation(nameof(Car.CarVin));
+            RaiseValidation(nameof(Car.CarOwner));
         }
 
         #endregion
@@ -63,10 +50,10 @@ namespace AutoRepair.ViewModel
             using (AppContext db = new AppContext())
             {
                 CarModel carModel =
-                        db.CarModels.FirstOrDefault(x => x.Manufacturer == CarManufacturer && x.Model == CarModel) ??
-                        new CarModel(CarManufacturer, CarModel);
-                db.Cars.Add(new Car(carModel, Color, CarProduceYear, CarNumber, CarVin, CarEngineNumber,
-                        CarBodyNumber, db.Find<Client>(CarOwner.ClientID)));
+                        db.CarModels.FirstOrDefault(x => x.Manufacturer == Car.CarModel.Manufacturer && x.Model == Car.CarModel.Model) ??
+                        new CarModel(Car.CarModel.Manufacturer, Car.CarModel.Model);
+                db.Cars.Add(new Car(carModel, Car.Color, Car.CarProduceYear, Car.CarNumber, Car.CarVin, Car.CarEngineNumber,
+                        Car.CarBodyNumber, db.Find<Client>(Car.CarOwner.ClientId)));
                 db.SaveChanges();
             }
 
@@ -84,16 +71,17 @@ namespace AutoRepair.ViewModel
         {
             using (AppContext db = new AppContext())
             {
-                Car car = db.Cars.Find(CarId);
-                CarModel carModel = db.CarModels.FirstOrDefault(x => x.Manufacturer == CarManufacturer && x.Model == CarModel) ?? new CarModel(CarManufacturer, CarModel);
-                Client carOwner = db.Clients.Find(CarOwner.ClientID);
+                Car car = db.Cars.Find(Car.CarId);
+                CarModel carModel = db.CarModels.FirstOrDefault(x => x.Manufacturer == car.CarModel.Manufacturer && x.Model == car.CarModel.Model) ??
+                                    new CarModel(car.CarModel.Manufacturer, car.CarModel.Model);
+                Client carOwner = db.Clients.Find(car.CarOwner.ClientId);
                 car.CarModel        = carModel;
-                car.Color           = Color;
-                car.CarProduceYear  = CarProduceYear;
-                car.CarNumber       = CarNumber;
-                car.CarVin          = CarVin;
-                car.CarEngineNumber = CarEngineNumber;
-                car.CarBodyNumber   = CarBodyNumber;
+                car.Color           = car.Color;
+                car.CarProduceYear  = car.CarProduceYear;
+                car.CarNumber       = car.CarNumber;
+                car.CarVin          = car.CarVin;
+                car.CarEngineNumber = car.CarEngineNumber;
+                car.CarBodyNumber   = car.CarBodyNumber;
                 car.CarOwner        = carOwner;
                 db.SaveChanges();
             }
@@ -140,182 +128,16 @@ namespace AutoRepair.ViewModel
 
         #endregion
 
-        #region CarProperties
+        #region CarProperty
 
-        #region CarIdProperty
+        private Car _car;
 
-        private int _carId;
-
-        public int CarId
+        public Car Car
         {
-            get => _carId;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _carId, value);
-                Validator();
-            }
+            get => _car;
+            set => this.RaiseAndSetIfChanged(ref _car, value);
         }
 
-        #endregion
-
-        #region CarManufacturerProperty
-
-        private string _carManufacturer;
-
-        public string CarManufacturer
-        {
-            get => _carManufacturer;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _carManufacturer, value);
-                Validator();
-            }
-        }
-
-        #endregion
-
-        #region CarModelProperty
-
-        private string _carModel;
-
-        public string CarModel
-        {
-            get => _carModel;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _carModel, value);
-                Validator();
-            }
-        }
-
-        #endregion
-
-        #region ColorProperty
-
-        private Color _color;
-
-        public Color Color
-        {
-            get => _color;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _color, value);
-                Validator();
-            }
-        }
-
-        #endregion
-
-        #region CarProduceYearProperty
-
-        private string _carProduceYear;
-
-        public string CarProduceYear
-        {
-            get => _carProduceYear;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _carProduceYear, value);
-                Validator();
-            }
-        }
-
-        #endregion
-
-        #region CarNumberProperty
-
-        private string _carNumber;
-
-        public string CarNumber
-        {
-            get => _carNumber;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _carNumber, value); 
-                Validator();
-            }
-        }
-
-        #endregion
-
-        #region CarVINProperty
-
-        private string _carVin;
-
-        public string CarVin
-        {
-            get => _carVin;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _carVin, value); 
-                Validator();
-            }
-        }
-
-        #endregion
-
-        #region CarEngineNumberProperty
-
-        private string _carEngineNumber;
-
-        public string CarEngineNumber
-        {
-            get => _carEngineNumber;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _carEngineNumber, value);
-                Validator();
-            }
-        }
-
-        #endregion
-
-        #region CarBodyNumberProperty
-
-        private string _carBodyNumber;
-
-        public string CarBodyNumber
-        {
-            get => _carBodyNumber;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _carBodyNumber, value); 
-                Validator();
-            }
-        }
-
-        #endregion
-
-        #region CarOwnerProperty
-
-        private Client _owner;
-
-        public Client CarOwner
-        {
-            get => _owner;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _owner, value); 
-                Validator();
-            }
-        }
-
-        #endregion
-
-        #endregion
-
-        #region ValidatorMethod
-
-        private void Validator()
-        {
-            RaiseValidation(nameof(CarManufacturer));
-            RaiseValidation(nameof(CarModel));
-            RaiseValidation(nameof(Color));
-            RaiseValidation(nameof(CarProduceYear));
-            RaiseValidation(nameof(CarNumber));
-            RaiseValidation(nameof(CarVin));
-            RaiseValidation(nameof(CarOwner));
-        }
         #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 
+
 namespace AutoRepair.Model
 {
     public class Service : ReactiveObject

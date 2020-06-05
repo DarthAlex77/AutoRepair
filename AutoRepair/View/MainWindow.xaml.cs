@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace AutoRepair
+namespace AutoRepair.View
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml

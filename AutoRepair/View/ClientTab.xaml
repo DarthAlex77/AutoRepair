@@ -18,18 +18,18 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Новый клиент" Command="{Binding AddClientCommand}" Width="100" Margin="5,2,5,2" />
-            <Button Content="Изменить клиента" Command="{Binding EditClientCommand}" Width="100" Margin="5,2,5,2" />
-            <Button Content="Удалить клиента" Command="{Binding DeleteClientCommand}" Width="100" Margin="5,2,5,2" />
+            <Button Content="Новый клиент"     Command="{Binding AddClientCommand}"    Width="100" Margin="5,2,5,2" />
+            <Button Content="Изменить клиента" Command="{Binding EditClientCommand}"   Width="100" Margin="5,2,5,2" />
+            <Button Content="Удалить клиента"  Command="{Binding DeleteClientCommand}" Width="100" Margin="5,2,5,2" />
         </StackPanel>
         <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Clients}"
                        SelectedItem="{Binding SelectedClient}" AllowSorting="False">
             <sf:SfDataGrid.Columns>
-                <sf:GridTextColumn Width="100" HeaderText="Фамилия" MappingName="LastName" />
-                <sf:GridTextColumn Width="100" HeaderText="Имя" MappingName="FirstName" />
+                <sf:GridTextColumn Width="100" HeaderText="Фамилия"  MappingName="LastName" />
+                <sf:GridTextColumn Width="100" HeaderText="Имя"      MappingName="FirstName" />
                 <sf:GridTextColumn Width="100" HeaderText="Отчество" MappingName="Patronymic" />
-                <sf:GridTextColumn Width="100" HeaderText="Паспорт" MappingName="PersonalId" />
-                <sf:GridTextColumn Width="100" HeaderText="Телефон" MappingName="PhoneNumber" />
+                <sf:GridTextColumn Width="100" HeaderText="Паспорт"  MappingName="PersonalId" />
+                <sf:GridTextColumn Width="100" HeaderText="Телефон"  MappingName="PhoneNumber" />
                 <sf:GridTextColumn ColumnSizer="AutoWithLastColumnFill" HeaderText="Адрес" MappingName="Address" />
             </sf:SfDataGrid.Columns>
             <sf:SfDataGrid.DetailsViewDefinition>

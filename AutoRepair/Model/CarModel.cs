@@ -32,6 +32,7 @@ namespace AutoRepair.Model
         #region ManufacturerProperty
 
         private string _manufacturer;
+
         [Required]
         public string Manufacturer
         {
@@ -44,6 +45,7 @@ namespace AutoRepair.Model
         #region ModelProperty
 
         private string _model;
+
         [Required]
         public string Model
         {
