@@ -5,6 +5,7 @@
         xmlns:vm="clr-namespace:AutoRepair.ViewModel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:autoRepair="clr-namespace:AutoRepair"
+        xmlns:behaviors="clr-namespace:AutoRepair.Behaviors"
         Height="250" Width="500">
 
     <Window.DataContext>
@@ -12,7 +13,7 @@
     </Window.DataContext>
 
     <i:Interaction.Behaviors>
-        <autoRepair:CloseWindowBehavior CloseTrigger="{Binding CloseTrigger}" />
+        <behaviors:CloseWindowBehavior CloseTrigger="{Binding CloseTrigger}" />
     </i:Interaction.Behaviors>
 
     <Window.Style>

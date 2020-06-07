@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive;
 using System.Reactive.Linq;
+using AutoRepair.Behaviors;
 using AutoRepair.Model;
 using AutoRepair.Validators;
 using DynamicData.Binding;
@@ -16,7 +17,7 @@ namespace AutoRepair.ViewModel
         public ClientEditWindowViewModel():base(new ClientValidator())
         {
             MessageBus.Current.Listen<int>   ("WindowMode").Subscribe(x => WindowState = x);
-            MessageBus.Current.Listen<Client>("EditClient").Subscribe(x=>Client=x);
+            MessageBus.Current.Listen<Client>("EditClient").Subscribe(ClientSelected);
             using (AppContext db = new AppContext())
             {
                 Clients = new ObservableCollectionExtended<Client>(db.Clients);
@@ -48,14 +49,130 @@ namespace AutoRepair.ViewModel
 
         #endregion
 
-        #region ClientProperty
+        #region ClientProperties
 
-        private Client _client;
-        public Client Client
+        #region ClientIDProperty
+
+        private int _clientId;
+
+        public int ClientId
         {
-            get => _client;
-            set => this.RaiseAndSetIfChanged(ref _client, value);
+            get => _clientId;
+            set => this.RaiseAndSetIfChanged(ref _clientId, value);
         }
+
+        #endregion
+
+        #region FirstNameProperty
+
+        private string _firstname;
+
+        public string FirstName
+        {
+            get => _firstname;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _firstname, value);
+                Validation();
+            }
+        }
+
+        #endregion
+
+        #region LastNameProperty
+
+        private string _lastName;
+
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _lastName, value);
+                Validation();
+            }
+        }
+
+        #endregion
+
+        #region PatronymicProperty
+
+        private string _patronymic;
+
+        public string Patronymic
+        {
+            get => _patronymic;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _patronymic, value);
+                Validation();
+            }
+        }
+
+        #endregion
+
+        #region PersonalIDProperty
+
+        private string _personalId;
+
+        public string PersonalId
+        {
+            get => _personalId;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _personalId, value);
+                Validation();
+            }
+        }
+
+        #endregion
+
+        #region PhoneNumberProperty
+
+        private string _phoneNumber;
+
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _phoneNumber, value);
+                Validation();
+            }
+        }
+
+        #endregion
+
+        #region AddressProperty
+
+        private string _address;
+
+        public string Address
+        {
+            get => _address;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _address, value);
+                Validation();
+            }
+        }
+
+        #endregion
+
+        #region RaiseValidationMethod
+
+        private void Validation()
+        {
+            RaiseValidation(nameof(Address));
+            RaiseValidation(nameof(PhoneNumber));
+            RaiseValidation(nameof(PersonalId));
+            RaiseValidation(nameof(Patronymic));
+            RaiseValidation(nameof(LastName));
+            RaiseValidation(nameof(FirstName));
+        }
+
+        #endregion
+
         #endregion
 
         #region WindowStateProperty
@@ -82,20 +199,6 @@ namespace AutoRepair.ViewModel
 
         #endregion
 
-        #region ValidationMethod
-
-        private void Validation()
-        {
-            RaiseValidation((Client.Address));
-            RaiseValidation(nameof(Client.PhoneNumber));
-            RaiseValidation(nameof(Client.PersonalId));
-            RaiseValidation(nameof(Client.Patronymic));
-            RaiseValidation(nameof(Client.LastName));
-            RaiseValidation(nameof(Client.FirstName));
-        }
-
-        #endregion
-
         #region AddClientCommand
 
         public ReactiveCommand<Unit, Unit> AddClientCommand { get; }
@@ -104,7 +207,7 @@ namespace AutoRepair.ViewModel
         {
             using (AppContext db = new AppContext())
             {
-                db.Clients.Add(new Client(Client.FirstName, Client.LastName, Client.Patronymic, Client.PersonalId, Client.PhoneNumber, Client.Address));
+                db.Clients.Add(new Client(FirstName, LastName, Patronymic, PersonalId, PhoneNumber, Address));
                 db.SaveChanges();
             }
 
@@ -118,17 +221,28 @@ namespace AutoRepair.ViewModel
 
         public ReactiveCommand<Unit, Unit> EditClientCommand { get; }
 
+        private void ClientSelected(Client obj)
+        {
+            ClientId = obj.ClientId;
+            FirstName = obj.FirstName;
+            LastName = obj.LastName;
+            Patronymic = obj.Patronymic;
+            PersonalId = obj.PersonalId;
+            PhoneNumber = obj.PhoneNumber;
+            Address = obj.Address;
+        }
+
         private void EditClient()
         {
             using (AppContext db = new AppContext())
             {
-                Client client = db.Clients.Find(Client.ClientId);
-                client.FirstName   = Client.FirstName;
-                client.LastName    = Client.LastName;
-                client.Patronymic  = Client.Patronymic;
-                client.PersonalId  = Client.PersonalId;
-                client.PhoneNumber = Client.PhoneNumber;
-                client.Address     = Client.Address;
+                Client client = db.Clients.Find(ClientId);
+                client.FirstName   = FirstName;
+                client.LastName    = LastName;
+                client.Patronymic  = Patronymic;
+                client.PersonalId  = PersonalId;
+                client.PhoneNumber = PhoneNumber;
+                client.Address     = Address;
                 db.SaveChanges();
             }
 

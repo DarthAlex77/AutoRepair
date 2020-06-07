@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using ReactiveUI;
 
 namespace AutoRepair.Model
@@ -21,7 +22,7 @@ namespace AutoRepair.Model
         #region SpareIDProperty
 
         private int _spareId;
-        [Key]
+        [Key][Display(AutoGenerateField = false)]
         public int SpareId
         {
             get => _spareId;
@@ -33,7 +34,7 @@ namespace AutoRepair.Model
         #region SpareNameProperty
 
         private string _spareName;
-
+        [Display(Name = "Название")]
         public string SpareName
         {
             get => _spareName;
@@ -45,7 +46,7 @@ namespace AutoRepair.Model
         #region SpareWarrantyProperty
 
         private string _spareWarranty;
-
+        [Display(Name = "Гарантия")]
         public string SpareWarranty
         {
             get => _spareWarranty;
@@ -54,10 +55,21 @@ namespace AutoRepair.Model
 
         #endregion
 
+        #region OrdersSparesProperty
+
+        private List<OrdersSpares> _order;
+        public List<OrdersSpares> OrdersSpares
+        {
+            get => _order;
+            set => this.RaiseAndSetIfChanged(ref _order, value);
+        }
+
+        #endregion
+
         #region SaprePriceProperty
 
         private string _sparePrice;
-
+        [Display(Name = "Цена")]
         public string SparePrice
         {
             get => _sparePrice;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive;
 using System.Reactive.Linq;
+using AutoRepair.Behaviors;
 using AutoRepair.Model;
 using AutoRepair.View;
 using DynamicData.Binding;

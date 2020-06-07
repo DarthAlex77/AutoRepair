@@ -3,11 +3,11 @@
 namespace AutoRepair.View
 {
     /// <summary>
-    ///     Логика взаимодействия для ClientTab.xaml
+    ///     Логика взаимодействия для ClientsTab.xaml
     /// </summary>
-    public partial class ClientTab : UserControl
+    public partial class ClientsTab : UserControl
     {
-        public ClientTab()
+        public ClientsTab()
         {
             InitializeComponent();
         }

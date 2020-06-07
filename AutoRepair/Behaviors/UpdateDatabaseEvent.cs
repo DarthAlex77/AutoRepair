@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoRepair
+namespace AutoRepair.Behaviors
 {
     public static class UpdateDatabaseEvent
     {

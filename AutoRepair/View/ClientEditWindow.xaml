@@ -7,6 +7,7 @@
         xmlns:vm="clr-namespace:AutoRepair.ViewModel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:autoRepair="clr-namespace:AutoRepair"
+        xmlns:behaviors="clr-namespace:AutoRepair.Behaviors"
         mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="Height"
         Width="560">
 
@@ -15,7 +16,7 @@
     </Window.DataContext>
 
     <i:Interaction.Behaviors>
-        <autoRepair:CloseWindowBehavior CloseTrigger="{Binding CloseTrigger}" />
+        <behaviors:CloseWindowBehavior CloseTrigger="{Binding CloseTrigger}" />
     </i:Interaction.Behaviors>
 
     <Window.Style>
@@ -60,12 +61,12 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Margin="8" Watermark="Фамилия" Text="{Binding Client.LastName}" />
-            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="8" Watermark="Имя" Text="{Binding Client.FirstName}" />
-            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Margin="8" Watermark="Отчество" Text="{Binding Client.Patronymic}" />
-            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="8" Watermark="№ Документа Уд. Личности" Text="{Binding Client.PersonalId}" />
-            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Margin="8" Watermark="№ Телефона" Text="{Binding Client.PhoneNumber}" />
-            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="8" Watermark="Адрес" Text="{Binding Client.Address}" />
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Margin="8" Watermark="Фамилия" Text="{Binding LastName}" />
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Margin="8" Watermark="Имя" Text="{Binding FirstName}" />
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Margin="8" Watermark="Отчество" Text="{Binding Patronymic}" />
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Margin="8" Watermark="№ Документа Уд. Личности" Text="{Binding PersonalId}" />
+            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="0" Margin="8" Watermark="№ Телефона" Text="{Binding PhoneNumber}" />
+            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Margin="8" Watermark="Адрес" Text="{Binding Address}" />
         </Grid>
 
         <sf:SfDataGrid Grid.Row="1" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}"

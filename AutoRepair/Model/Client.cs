@@ -26,7 +26,7 @@ namespace AutoRepair.Model
         #region ClientIDProperty
 
         private int _clientId;
-
+        [Display(AutoGenerateField = false)]
         public int ClientId
         {
             get => _clientId;
@@ -38,7 +38,7 @@ namespace AutoRepair.Model
         #region FirstNameProperty
 
         private string _firstname;
-        [Required]
+        [Required][Display(Name = "Имя")]
         public string FirstName
         {
             get => _firstname;
@@ -50,7 +50,7 @@ namespace AutoRepair.Model
         #region LastNameProperty
 
         private string _lastName;
-        [Required]
+        [Required][Display(Name = "Фамилия")]
         public string LastName
         {
             get => _lastName;
@@ -62,6 +62,7 @@ namespace AutoRepair.Model
         #region PatronymicProperty
 
         private string _patronymic;
+        [Display(Name = "Отчество")]
         public string Patronymic
         {
             get => _patronymic;
@@ -73,7 +74,7 @@ namespace AutoRepair.Model
         #region PersonalIDProperty
 
         private string _personalId;
-        [Required]
+        [Required][Display(Name = "№ Уд.Личности")]
         public string PersonalId
         {
             get => _personalId;
@@ -85,7 +86,7 @@ namespace AutoRepair.Model
         #region PhoneNumberProperty
 
         private string _phoneNumber;
-        [Required]
+        [Required][Display(Name = "№ Телефона")]
         public string PhoneNumber
         {
             get => _phoneNumber;
@@ -97,7 +98,7 @@ namespace AutoRepair.Model
         #region AddressProperty
 
         private string _address;
-
+        [Display(Name = "Адрес")]
         public string Address
         {
             get => _address;

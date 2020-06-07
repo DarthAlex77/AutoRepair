@@ -30,7 +30,7 @@ namespace AutoRepair.Model
         #region CarIdProperty
 
         private int _carId;
-
+        [Display(AutoGenerateField = false)]
         public int CarId
         {
             get => _carId;
@@ -57,6 +57,7 @@ namespace AutoRepair.Model
         [Required]
         [Browsable(false)]
         [Column("Color")]
+        [Display(AutoGenerateField = false)]
         public string Argb
         {
             get => _color.ToString();
@@ -65,7 +66,7 @@ namespace AutoRepair.Model
 
         private Color _color;
 
-        [NotMapped]
+        [NotMapped][Display(Name = "Цвет")]
         public Color Color
         {
             get => _color;
@@ -78,7 +79,7 @@ namespace AutoRepair.Model
 
         private string _carProduceYear;
 
-        [Required]
+        [Required][Display(Name = "Год")]
         public string CarProduceYear
         {
             get => _carProduceYear;
@@ -91,7 +92,7 @@ namespace AutoRepair.Model
 
         private string _carNumber;
 
-        [Required]
+        [Required][Display(Name = "Гос Номер")]
         public string CarNumber
         {
             get => _carNumber;
@@ -104,7 +105,7 @@ namespace AutoRepair.Model
 
         private string _carVin;
 
-        [Required]
+        [Required][Display(Name = "VIN")]
         public string CarVin
         {
             get => _carVin;
@@ -116,7 +117,7 @@ namespace AutoRepair.Model
         #region CarEngineNumberProperty
 
         private string _carEngineNumber;
-
+        [Display(Name = "№ Двигателя")]
         public string CarEngineNumber
         {
             get => _carEngineNumber;
@@ -128,7 +129,7 @@ namespace AutoRepair.Model
         #region CarBodyNumberProperty
 
         private string _carBodyNumber;
-
+        [Display(Name = "№ Кузова")]
         public string CarBodyNumber
         {
             get => _carBodyNumber;
@@ -141,7 +142,7 @@ namespace AutoRepair.Model
 
         private Client _owner;
 
-        [Required]
+        [Required][Display(Name = "Владелец")]
         public Client CarOwner
         {
             get => _owner;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+using AutoRepair.Behaviors;
 using AutoRepair.Model;
 using ReactiveUI;
 

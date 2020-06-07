@@ -6,13 +6,13 @@
     <Grid>
         <TabControl>
             <TabItem Header="Заказы">
-                <local:OrderTab />
+                <local:OrdersTab />
             </TabItem>
             <TabItem Header="Машины">
-                <local:CarTab />
+                <local:CarsTab />
             </TabItem>
             <TabItem Header="Клиенты">
-                <local:ClientTab />
+                <local:ClientsTab />
             </TabItem>
             <TabItem Header="Запчасти">
                 <local:SparesTab />

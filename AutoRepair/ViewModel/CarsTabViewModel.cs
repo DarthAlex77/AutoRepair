@@ -2,6 +2,7 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
+using AutoRepair.Behaviors;
 using AutoRepair.Model;
 using AutoRepair.View;
 using DynamicData.Binding;
@@ -10,11 +11,11 @@ using ReactiveUI;
 
 namespace AutoRepair.ViewModel
 {
-    internal class CarTabViewModel :ReactiveObject
+    internal class CarsTabViewModel :ReactiveObject
     {
         #region Constructor
 
-        public CarTabViewModel()
+        public CarsTabViewModel()
         {
             EditCarCommand                      =  ReactiveCommand.Create(EditCar, IsCarSelected);
             DeleteCarCommand                    =  ReactiveCommand.Create(DeleteCar, IsCarSelected);
@@ -69,7 +70,7 @@ namespace AutoRepair.ViewModel
         private void EditCar()
         {
             new CarEditWindow().ShowDialogAsync();
-            MessageBus.Current.SendMessage(SelectedCar, "EditCar");
+            MessageBus.Current.SendMessage(SelectedCar.CarId, "EditCarId");
         }
 
         #endregion

@@ -23,14 +23,8 @@
             <Button Content="Изменить услугу" Width="100" Margin="5,2,5,2" Command="{Binding EditServiceCommand}" />
             <Button Content="Удалить услугу" Width="100"  Margin="5,2,5,2" Command="{Binding DeleteServiceCommand}" />
         </StackPanel>
-        <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Services}"
-                       SelectedItem="{Binding SelectedService}" SelectionUnit="Row" AllowSorting="False">
-            <sf:SfDataGrid.Columns>
-                <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Название" MappingName="ServiceName"/>
-                <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Цена" MappingName="ServicePrice"/>
-                <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Гарантия" MappingName="WarrantyPeriod"/>
-                <sf:GridTextColumn ColumnSizer="AutoWithLastColumnFill" MappingName="ServiceNote" HeaderText="Описание" TextWrapping="Wrap"/>
-            </sf:SfDataGrid.Columns>
+        <sf:SfDataGrid Grid.Row="1" ItemsSource="{Binding Services}"
+                       SelectedItem="{Binding SelectedService}" SelectionUnit="Row" AllowSorting="False" ColumnSizer="AutoLastColumnFill">
         </sf:SfDataGrid>
     </Grid>
 </UserControl>

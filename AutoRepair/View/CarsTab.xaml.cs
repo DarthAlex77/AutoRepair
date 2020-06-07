@@ -3,11 +3,11 @@
 namespace AutoRepair.View
 {
     /// <summary>
-    ///     Логика взаимодействия для CarTab.xaml
+    ///     Логика взаимодействия для CarsTab.xaml
     /// </summary>
-    public partial class CarTab : UserControl
+    public partial class CarsTab : UserControl
     {
-        public CarTab()
+        public CarsTab()
         {
             InitializeComponent();
         }

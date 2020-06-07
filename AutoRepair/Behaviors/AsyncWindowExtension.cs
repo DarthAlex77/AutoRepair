@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace AutoRepair
+namespace AutoRepair.Behaviors
 {
     public static class AsyncWindowExtension
     {

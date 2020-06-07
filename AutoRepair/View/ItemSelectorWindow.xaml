@@ -1,0 +1,120 @@
+﻿<Window x:Class="AutoRepair.View.ItemSelectorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:vm="clr-namespace:AutoRepair.ViewModel"
+        xmlns:sf="http://schemas.syncfusion.com/wpf"
+        xmlns:autoRepair="clr-namespace:AutoRepair"
+        xmlns:behaviors="clr-namespace:AutoRepair.Behaviors"
+        Height="450" Width="800">
+
+    <Window.DataContext>
+        <vm:ItemSelectorWindowViewModel/>
+    </Window.DataContext>
+
+    <i:Interaction.Behaviors>
+        <behaviors:CloseWindowBehavior CloseTrigger="{Binding CloseTrigger}" />
+    </i:Interaction.Behaviors>
+
+    <Window.Style>
+        <Style TargetType="Window">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding WindowMode}" Value="1">
+                    <Setter Property="Title" Value="Выбрать Авто"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding WindowMode}" Value="2">
+                    <Setter Property="Title" Value="Выбрать Клиента"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding WindowMode}" Value="3">
+                    <Setter Property="Title" Value="Выбрать Услуги"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding WindowMode}" Value="4">
+                    <Setter Property="Title" Value="Выбрать Запчасти"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+        <sf:SfDataGrid Grid.Row="0" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True">
+            <sf:SfDataGrid.Style>
+                <Style TargetType="sf:SfDataGrid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding WindowMode}" Value="1">
+                            <Setter Property="ItemsSource" Value="{Binding Cars}"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </sf:SfDataGrid.Style>
+            <sf:SfDataGrid.Columns>
+                    <sf:GridTextColumn HeaderText="Производитель" MappingName="CarModel"
+                                       DisplayBinding="{Binding CarModel,Converter={StaticResource CarManufacturerToStringConverter}}" />
+                    <sf:GridTextColumn HeaderText="Модель" MappingName="CarModel"
+                                       DisplayBinding="{Binding CarModel,Converter={StaticResource CarModelToStringConverter}}" />
+                    <sf:GridTemplateColumn HeaderText="Цвет" MappingName="Color">
+                        <sf:GridTemplateColumn.CellStyle>
+                            <Style TargetType="sf:GridCell">
+                                <Setter Property="Background"
+                                        Value="{Binding Color ,Converter={StaticResource ColorToBackgroundColorConverter}}" />
+                            </Style>
+                        </sf:GridTemplateColumn.CellStyle>
+                    </sf:GridTemplateColumn>
+                </sf:SfDataGrid.Columns>
+        </sf:SfDataGrid>
+
+        <sf:SfDataGrid Grid.Row="0" x:Name="DataGrid" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="True">
+            <sf:SfDataGrid.Style>
+                <Style TargetType="sf:SfDataGrid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding WindowMode}" Value="1">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding WindowMode}" Value="2">
+                            <Setter Property="ItemsSource" Value="{Binding Clients}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding WindowMode}" Value="3">
+                            <Setter Property="ItemsSource" Value="{Binding Services}"/>
+                            <Setter Property="SelectedItem" Value="{Binding SelectedItem}"/>
+                            <Setter Property="SelectedItems" Value="{Binding SelectedItems,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="SelectionMode" Value="Extended"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding WindowMode}" Value="4">
+                            <Setter Property="ItemsSource" Value="{Binding Spares}"/>
+                            <Setter Property="SelectedItems" Value="{Binding SelectedItems,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </sf:SfDataGrid.Style>
+        </sf:SfDataGrid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Content="Выбрать" Width="100" Margin="5">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding WindowMode}" Value="1">
+                                <Setter Property="Command" Value="{Binding SelectCarCommand}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding WindowMode }" Value="2">
+                                <Setter Property="Command" Value="{Binding SelectClientCommand}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding WindowMode }" Value="3">
+                                <Setter Property="Command" Value="{Binding SelectServicesCommand}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding WindowMode }" Value="4">
+                                <Setter Property="Command" Value="{Binding SelectSparesCommand}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -5,6 +5,7 @@
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         <converters:ClientToStringConverter x:Key="ClientToStringConverter" />
+        <converters:CarToStringConverter x:Key="CarToStringConverter"/>
         <converters:CarManufacturerToStringConverter x:Key="CarManufacturerToStringConverter" />
         <converters:CarModelToStringConverter x:Key="CarModelToStringConverter" />
         <converters:ColorToBackgroundColorConverter x:Key="ColorToBackgroundColorConverter" />

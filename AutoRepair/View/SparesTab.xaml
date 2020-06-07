@@ -23,12 +23,6 @@
             <Button Content="Изменить часть" Width="100" Margin="5,2,5,2" Command="{Binding EditSpareCommand}" />
             <Button Content="Удалить часть"  Width="100" Margin="5,2,5,2" Command="{Binding DeleteSpareCommand}" />
         </StackPanel>
-        <sf:SfDataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Spares}" SelectedItem="{Binding SelectedSpare}" SelectionUnit="Row" AllowSorting="False">
-            <sf:SfDataGrid.Columns>
-                <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Название" MappingName="SpareName"/>
-                <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Цена"     MappingName="SparePrice"/>
-                <sf:GridTextColumn ColumnSizer="Auto" HeaderText="Гарантия" MappingName="SpareWarranty"/>
-            </sf:SfDataGrid.Columns>
-        </sf:SfDataGrid>
+        <sf:SfDataGrid Grid.Row="1" ItemsSource="{Binding Spares}" SelectedItem="{Binding SelectedSpare}" SelectionUnit="Row" AllowSorting="False"/>
     </Grid>
 </UserControl>

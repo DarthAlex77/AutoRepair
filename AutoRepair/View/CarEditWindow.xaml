@@ -7,6 +7,7 @@
         xmlns:sf="http://schemas.syncfusion.com/wpf"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:autoRepair="clr-namespace:AutoRepair"
+        xmlns:behaviors="clr-namespace:AutoRepair.Behaviors"
         mc:Ignorable="d"
         Height="275" Width="425">
 
@@ -15,7 +16,7 @@
     </Window.DataContext>
 
     <i:Interaction.Behaviors>
-        <autoRepair:CloseWindowBehavior CloseTrigger="{Binding CloseTrigger}" />
+        <behaviors:CloseWindowBehavior CloseTrigger="{Binding CloseTrigger}" />
     </i:Interaction.Behaviors>
 
     <Window.Style>
@@ -35,45 +36,44 @@
             <RowDefinition Height="0.2*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Watermark="Производитель" Margin="8"
+                             Text="{Binding CarManufacturer}" />
+            <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Watermark="Модель" Margin="8"
+                             Text="{Binding CarModel}" />
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Watermark="Год производства" Margin="8"
+                             Text="{Binding CarProduceYear}" />
+            <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Watermark="Гос Номер" Margin="8"
+                             Text="{Binding CarNumber}" />
+            <sf:ColorPicker Grid.Row="2" Grid.Column="0" Margin="8,0,8,0" Color="{Binding Color,Mode=TwoWay}"
+                            IsAlphaVisible="False" />
+            <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Watermark="VIN номер" Margin="8"
+                             Text="{Binding CarVin}" />
+            <sf:SfTextBoxExt Grid.Row="3" Grid.Column="0" Watermark="Номер Двигателя" Margin="8"
+                             Text="{Binding CarEngineNumber}" />
+            <sf:SfTextBoxExt Grid.Row="3" Grid.Column="1" Watermark="Номер Шасси" Margin="8"
+                             Text="{Binding CarBodyNumber}" />
+
+            <Grid Grid.Row="4" Grid.Column="0" ColumnSpan="2" Margin="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.2*" />
                 </Grid.ColumnDefinitions>
-                <sf:SfTextBoxExt Grid.Row="0" Grid.Column="0" Watermark="Производитель" Margin="8"
-                                 Text="{Binding Car.CarModel.Manufacturer}" />
-                <sf:SfTextBoxExt Grid.Row="0" Grid.Column="1" Watermark="Модель" Margin="8"
-                                 Text="{Binding Car.CarModel.Model}" />
-                <sf:SfTextBoxExt Grid.Row="1" Grid.Column="0" Watermark="Год производства" Margin="8"
-                                 Text="{Binding Car.CarProduceYear}" />
-                <sf:SfTextBoxExt Grid.Row="1" Grid.Column="1" Watermark="Гос Номер" Margin="8"
-                                 Text="{Binding Car.CarNumber}" />
-                <sf:ColorPicker Grid.Row="2" Grid.Column="0" Margin="8,0,8,0" Color="{Binding Car.Color,Mode=TwoWay}"
-                                IsAlphaVisible="False" />
-                <sf:SfTextBoxExt Grid.Row="2" Grid.Column="1" Watermark="VIN номер" Margin="8"
-                                 Text="{Binding Car.CarVin}" />
-                <sf:SfTextBoxExt Grid.Row="3" Grid.Column="0" Watermark="Номер Двигателя" Margin="8"
-                                 Text="{Binding Car.CarEngineNumber}" />
-                <sf:SfTextBoxExt Grid.Row="3" Grid.Column="1" Watermark="Номер Шасси" Margin="8"
-                                 Text="{Binding Car.CarBodyNumber}" />
-
-                <Grid Grid.Row="4" Grid.Column="0" ColumnSpan="2" Margin="8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="0.2*" />
-                    </Grid.ColumnDefinitions>
-                    <sf:SfTextBoxExt Grid.Column="0" Watermark="Владелец" IsReadOnly="True"
-                                     Text="{Binding Car.CarOwner,Converter={StaticResource ClientToStringConverter}}" />
-                    <Button Grid.Column="1" Command="{Binding SelectOwnerCommand}" Content="..." />
-                </Grid>
+                <sf:SfTextBoxExt Grid.Column="0" Watermark="Владелец" IsReadOnly="True"
+                                 Text="{Binding CarOwner,Converter={StaticResource ClientToStringConverter}}" />
+                <Button Grid.Column="1" Command="{Binding SelectOwnerCommand}" Content="..." />
             </Grid>
+
         </Grid>
         <StackPanel Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button Margin="5,2,0,2" Width="100" IsDefault="True">

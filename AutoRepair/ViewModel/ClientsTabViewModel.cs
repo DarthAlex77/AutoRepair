@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
+using AutoRepair.Behaviors;
 using AutoRepair.Model;
 using AutoRepair.View;
 using DynamicData.Binding;
@@ -11,10 +12,10 @@ using ReactiveUI;
 
 namespace AutoRepair.ViewModel
 {
-    internal class ClientTabViewModel : ReactiveObject
+    internal class ClientsTabViewModel : ReactiveObject
     {
         #region Constructors
-        public ClientTabViewModel()
+        public ClientsTabViewModel()
         {
             AddClientCommand                    =  ReactiveCommand.Create(AddClient);
             EditClientCommand                   =  ReactiveCommand.Create(EditClient, IsClientSelected);

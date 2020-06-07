@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using ReactiveUI;
 
 namespace AutoRepair.Model
@@ -20,7 +21,7 @@ namespace AutoRepair.Model
         #region OrderIdProperty
 
         private int _orderId;
-
+        [Display(Name = "№ Заказа")]
         public int OrderId
         {
             get => _orderId;
@@ -32,7 +33,7 @@ namespace AutoRepair.Model
         #region CarProperty
 
         private Car _car;
-
+        [Display(Name = "Машина")]
         public Car Car
         {
             get => _car;
@@ -44,7 +45,7 @@ namespace AutoRepair.Model
         #region ClientProperty
 
         private Client _client;
-
+        [Display(Name = "Клиент")]
         public Client Client
         {
             get => _client;
@@ -52,5 +53,40 @@ namespace AutoRepair.Model
         }
 
         #endregion
+
+        #region OrderServiceProperty
+
+        private List<OrdersServices> _orderServices;
+        public List<OrdersServices> OrderServices
+        {
+            get => _orderServices;
+            set => this.RaiseAndSetIfChanged(ref _orderServices, value);
+        }
+
+        #endregion
+
+        #region OrderSparesProperty
+
+        private List<OrdersSpares> _orderSpares;
+        public List<OrdersSpares> OrdersSpares
+        {
+            get => _orderSpares;
+            set => this.RaiseAndSetIfChanged(ref _orderSpares, value);
+        }
+
+        #endregion
+
+        #region OrderNotesProperty
+
+        private string _orderNotes;
+        [Display(Name = "Примечание")]
+        public string OrderNotes
+        {
+            get => _orderNotes;
+            set => this.RaiseAndSetIfChanged(ref _orderNotes, value);
+        }
+
+        #endregion
+
     }
 }

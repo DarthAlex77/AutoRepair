@@ -4,6 +4,7 @@ using DynamicData.Binding;
 using ReactiveUI;
 using System.Reactive;
 using System.Reactive.Linq;
+using AutoRepair.Behaviors;
 using AutoRepair.View;
 
 namespace AutoRepair.ViewModel

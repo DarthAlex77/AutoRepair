@@ -1,5 +1,6 @@
-﻿using ReactiveUI;
-
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using ReactiveUI;
 
 namespace AutoRepair.Model
 {
@@ -7,14 +8,16 @@ namespace AutoRepair.Model
     {
         #region Constructors
 
-        public Service() { }
+        public Service()
+        {
+        }
 
         public Service(string serviceName, string servicesPrice, string warrantyPeriod, string serviceNote)
         {
-            _serviceName    = serviceName;
-            _servicesPrice  = servicesPrice;
+            _serviceName = serviceName;
+            _servicesPrice = servicesPrice;
             _warrantyPeriod = warrantyPeriod;
-            _serviceNote    = serviceNote;
+            _serviceNote = serviceNote;
         }
 
         #endregion
@@ -22,7 +25,7 @@ namespace AutoRepair.Model
         #region ServiceIDProperty
 
         private int _serviceId;
-
+        [Display(AutoGenerateField = false)]
         public int ServiceId
         {
             get => _serviceId;
@@ -34,7 +37,7 @@ namespace AutoRepair.Model
         #region ServiceNameProperty
 
         private string _serviceName;
-
+        [Display(Name = "Название")]
         public string ServiceName
         {
             get => _serviceName;
@@ -46,7 +49,7 @@ namespace AutoRepair.Model
         #region ServicePriceProperty
 
         private string _servicesPrice;
-
+        [Display(Name = "Цена")]
         public string ServicePrice
         {
             get => _servicesPrice;
@@ -58,7 +61,7 @@ namespace AutoRepair.Model
         #region WarrantyPeriodProperty
 
         private string _warrantyPeriod;
-
+        [Display(Name = "Гарантия")]
         public string WarrantyPeriod
         {
             get => _warrantyPeriod;
@@ -70,11 +73,23 @@ namespace AutoRepair.Model
         #region ServiceNoteProperty
 
         private string _serviceNote;
-
+        [Display(Name = "Примечание")]
         public string ServiceNote
         {
             get => _serviceNote;
             set => this.RaiseAndSetIfChanged(ref _serviceNote, value);
+        }
+
+        #endregion
+
+        #region OrderServicesProperty
+
+        private List<OrdersServices> _orderServices;
+
+        public List<OrdersServices> OrderServices
+        {
+            get => _orderServices;
+            set => this.RaiseAndSetIfChanged(ref _orderServices, value);
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Interactivity;
 
-namespace AutoRepair
+namespace AutoRepair.Behaviors
 {
     public class CloseWindowBehavior : Behavior<Window>
     {

@@ -25,13 +25,19 @@ namespace AutoRepair
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /* modelBuilder.Entity<OrderServices>().HasKey(os => new {os.ServiceId, os.OrderId});
-             modelBuilder.Entity<OrderServices>().HasOne<Order>(os => os.Order).WithMany(o => o.OrderServices)
+             modelBuilder.Entity<OrdersServices>().HasKey(os => new {os.ServiceId, os.OrderId});
+             modelBuilder.Entity<OrdersServices>().HasOne<Order>(os => os.Order).WithMany(o => o.OrderServices)
                  .HasForeignKey(os => os.OrderId);
-             modelBuilder.Entity<OrderServices>().HasOne<Service>(os => os.Service).WithMany(s => s.OrderServices)
+             modelBuilder.Entity<OrdersServices>().HasOne<Service>(os => os.Service).WithMany(s => s.OrderServices)
                  .HasForeignKey(os => os.ServiceId);
-            */
+            
             modelBuilder.Entity<Car>().HasOne(p => p.CarOwner).WithMany(p => p.ClientCars).OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<OrdersSpares>().HasKey(os => new {os.SpareId, os.OrderId});
+            modelBuilder.Entity<OrdersSpares>().HasOne<Order>(os => os.Order).WithMany(o => o.OrdersSpares)
+                .HasForeignKey(os => os.OrderId);
+            modelBuilder.Entity<OrdersSpares>().HasOne<Spare>(os => os.Spare).WithMany(s => s.OrdersSpares)
+                .HasForeignKey(os => os.SpareId);
         }
     }
 }

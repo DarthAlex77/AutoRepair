@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ReactiveUI;
 
-namespace AutoRepair
+namespace AutoRepair.Behaviors
 {
     public abstract class ReactiveObjectConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
             where TEntity : ReactiveObject
